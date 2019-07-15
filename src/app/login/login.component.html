@@ -1,0 +1,71 @@
+<div class="login">
+  <div class="login-container">
+    <div class="login-left">
+      <div class="outer">
+        <div class="inner">
+          <div class="project-name">
+            <ul>
+              <li>
+                <div class="digit-box">
+                  <h2>C</h2>
+                </div>
+              </li>
+              <li>
+                <div class="digit-box">
+                 <h2>R</h2>
+                </div> 
+              </li>
+              <li>
+                <div class="digit-box">
+                 <h2>M</h2>
+                </div>
+              </li>
+            </ul>
+            <div class="full-form">
+            <p>Customer</p> 
+            <p>Relationship</p>
+            <p>Management</p>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="login-right">
+     <div class="outer">
+       <div class="inner">
+        <div class="login-form" [@routerTransition]>
+          <div class="form-logo">
+            <img src="assets/img/theme/wheel-power/logo.png">
+          </div>
+          <div class="short-description">
+            <p>Please enter your username and password to login.</p>
+          </div>
+          <form #f="ngForm" (ngSubmit)="f.valid && login_user()">
+            <div class="form">
+              <div class="control-field">
+                <mat-form-field class="example-full-width" [ngClass]="{'has-error':!data.username && f.submitted }">
+                  <input matInput placeholder="Name" name="username" [(ngModel)]="data.username" required>
+                  <i class="material-icons input-icon">person</i>
+                </mat-form-field>
+              </div>
+              <div class="control-field">
+                <mat-form-field class="example-full-width" [ngClass]="{'has-error':!data.password && f.submitted }">
+                  <input type="password" matInput placeholder="password" name="password" [(ngModel)]="data.password" required>
+                  <i class="material-icons input-icon">vpn_key</i>
+                </mat-form-field>
+              </div>
+              <div class="cs-btn text-left mt30 fixedd140">
+                <div class="in-btn ">
+                  <button mat-raised-button  matTooltipPosition="below" matTooltip="Login" class="login-btn" style="background: #00A0C1;">Login</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+       </div>
+     </div>
+
+     <p class="bootom-text">Powered by Abacusdesk</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="edit-modal">
+  <form  #f="ngForm" (ngSubmit)="f.valid && update_user()">
+    <div mat-dialog-content>
+      <p class="heading">Update Address</p>
+      <div class="from-fields">
+        <div class="col s12">          
+          <div class="row">
+            <div class="col s4 pl0">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <mat-select placeholder="Select Country" name="country" [(ngModel)]="data.country" required>
+                    <mat-option *ngFor="let val of country_list" (click)="get_states()" [value]="val.id"> {{val.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col s4 ">
+              <div class="control-field">
+                <mat-form-field class="cs-input" *ngIf="data.country == 99">
+                  <mat-select placeholder="State" name="state" [(ngModel)]="data.state"  (selectionChange)="get_district()" required>
+                    <mat-option *ngFor="let state of state_list" [value]="state.state_name">{{state.state_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="cs-input" *ngIf="data.country != 99">
+                  <input matInput type="text" placeholder="State" name="state" [(ngModel)]="data.state" required>
+                </mat-form-field>           
+              </div>
+            </div>
+            <div class="col s4 pr0">
+              <div class="control-field">
+                <mat-form-field class="cs-input" *ngIf="data.country == 99">
+                  <mat-select placeholder="District" name="district"  (selectionChange)="get_city()" [(ngModel)]="data.district" required>
+                    <mat-option *ngFor="let data of district_list" [value]="data.district_name">{{data.district_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="cs-input" *ngIf="data.country != 99">
+                  <input matInput type="text" placeholder="District" name="district" [(ngModel)]="data.district" required>
+                </mat-form-field>
+                
+              </div>
+            </div>
+            
+            <div class="col s4 pr0">
+              <div class="control-field">
+                <mat-form-field class="cs-input" *ngIf="data.country == 99">
+                  <mat-select placeholder="City" name="city"  (selectionChange)="get_pincode()"  [(ngModel)]="data.city" required>
+                    <mat-option *ngFor="let data of city_list" [value]="data.city">{{data.city}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="cs-input" *ngIf="data.country != 99">
+                  <input matInput type="text" placeholder="City" name="city" [(ngModel)]="data.city" required>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div class="col s4 pr0">
+              <div class="control-field">
+                <mat-form-field class="cs-input" *ngIf="data.country == 99">
+                  <mat-select placeholder="Pincode" name="pincode" [(ngModel)]="data.pincode" required>
+                    <mat-option *ngFor="let data of pin_list" [value]="data.pincode">{{data.pincode}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="cs-input" *ngIf="data.country != 99">
+                  <input matInput type="text" placeholder="Pincode" name="pincode" [(ngModel)]="data.pincode" required>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            
+          </div>
+          
+          <div class="row mb20">
+            <div class="col s8 pl0">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <textarea matInput name="address" placeholder="Address" [(ngModel)]="data.address"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col s4 empty"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <a mat-raised-button color="warn" (click)="onNoClick()">Cancel</a>
+      <button mat-raised-button color="accent" mat-button>Save</button>
+    </div>
+  </form>
+</div>

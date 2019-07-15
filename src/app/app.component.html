@@ -1,0 +1,6 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!-- <app-login *ngIf="!db.can_active"></app-login> -->
+<app-header *ngIf="db.can_active"></app-header>
+<app-navigation *ngIf="db.can_active"></app-navigation>
+<app-footer *ngIf="db.can_active"></app-footer>
+<router-outlet></router-outlet>

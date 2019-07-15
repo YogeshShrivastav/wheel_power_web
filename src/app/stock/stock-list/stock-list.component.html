@@ -1,0 +1,277 @@
+<div class="main-container" [@routerTransition]>
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container">
+    <div class="tabs" *ngIf="abq_user.login_type != 'admin'">
+      <ul>
+        <li><a class="pr40" [ngClass]="{'active' : instock }" (click)="classactive('in');get_warehouse_product()">In Stock <span class="counter">{{in_stock_row}}</span></a></li>
+        <li><a class="pr40" [ngClass]="{'active' : stockalert }" (click)="classactive('alert');get_warehouse_product()">Stock Alert <span class="counter">{{stock_alert_row}}</span></a></li>
+        <li><a class="pr40" [ngClass]="{'active' : outofstock }" (click)="classactive('out');get_warehouse_product()">Out of Stock <span class="counter">{{out_of_stock_row}}</span></a></li>
+      </ul>
+    </div>
+    <div class="top-pagination" *ngIf="abq_user.login_type != 'admin'">
+      <ul>
+        <li>
+          <div class="add-new">
+            <div class="mat-drop dsb">
+              <button mat-stroked-button [matMenuTriggerFor]="addnew">Action <i class="material-icons">keyboard_arrow_down</i></button>
+              <mat-menu x-position="before" #addnew="matMenu">
+                <a mat-menu-item routerLink="/add-stock" routerLinkActive="active">Material Receive</a>
+                <a mat-menu-item routerLink="/stock-update" routerLinkActive="active">Update Stock</a>
+                <a mat-menu-item routerLink="/stock-sifting" routerLinkActive="active">Stock Transfer</a>
+                <a mat-menu-item routerLink="/stock-return" routerLinkActive="active">Stock Return</a>
+              </mat-menu>
+            </div>
+          </div>
+        </li>
+        <li class="refresh-area">
+          <a class="refresh-btn" mat-raised-button  matTooltip="Refresh" (click)="refresh()"><i class="material-icons"> refresh</i></a>
+        </li>
+        <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_warehouse_product(pagelimit,start-pagelimit)">
+            <i class="material-icons" >keyboard_arrow_left</i>
+          </button>
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <input type="text" placeholder="GO TO" name="pagenumber"  (keyup.enter)="checkpage();get_warehouse_product(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_warehouse_product(pagelimit,(start+pagelimit))">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </button>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="tabs" *ngIf="abq_user.login_type == 'admin'">
+      <ul>
+        <li><a class="pr40" [ngClass]="{'active' : instock }" (click)="classactive('in');get_warehouse_product()">In Stock <span class="counter">{{in_stock_row}}</span></a></li>
+        <li><a class="pr40" [ngClass]="{'active' : stockalert }" (click)="classactive('alert');get_warehouse_product()">Stock Alert <span class="counter">{{stock_alert_row}}</span></a></li>
+        <li><a class="pr40" [ngClass]="{'active' : outofstock }" (click)="classactive('out');get_warehouse_product()">Out of Stock <span class="counter">{{out_of_stock_row}}</span></a></li>
+      </ul>
+    </div>
+    
+    <div class="top-pagination" *ngIf="abq_user.login_type == 'admin'">
+      <ul>
+        <li>
+          <div class="from-fields" style="margin-top: -20px;">
+            <div class="control-field">
+              <mat-form-field class="cs-input">
+                <mat-select placeholder="Select wharehouse" name="warehouse_id" [(ngModel)]="warehouse_id" required>
+                  <mat-option (click)="get_warehouse_product()" value="">All Stock</mat-option>
+                  <mat-option *ngFor="let row of warehouse" (click)="get_warehouse_product()" value="{{row.id}}">{{row.warehouse_name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </li>
+        <li class="refresh-area">
+          <a class="refresh-btn" mat-raised-button  matTooltip="Refresh" (click)="refresh()"><i class="material-icons"> refresh</i></a>
+        </li>
+        <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_warehouse_product(pagelimit,start-pagelimit)">
+            <i class="material-icons" >keyboard_arrow_left</i>
+          </button>
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <input type="text" placeholder="GO TO" name="pagenumber"  (keyup.enter)="checkpage();get_warehouse_product(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_warehouse_product(pagelimit,(start+pagelimit))">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </button>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+  
+  <div class="container-outer pt0">
+    <div class="container" >
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20" *ngIf="abq_user.login_type == 'admin'">
+            <div class="sticky-head">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th class="w200">Brand</th>
+                    <th class="w200">Category</th>
+                    <th class="w200">Product Name</th>
+                    <th class="w220">Product Code</th>
+                    <th class="w100">Current Stock</th>
+                    <th class="w100 text-center">Stock Alert</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="table-head bdrt">
+                <table>
+                  <tr>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Brand" name="brand" [(ngModel)]="search.brand">
+                            <ng-container  *ngFor="let row of brand_list">
+                              <mat-option (click)="get_product_category(search.brand);get_warehouse_product()" value="{{row.brand}}">{{row.brand}}</mat-option>
+                            </ng-container>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Category" name="category" [(ngModel)]="search.category">
+                            <ng-container  *ngFor="let row of category_list">
+                              <mat-option (click)="get_warehouse_product()" value="{{row.category}}">{{row.category}}</mat-option>
+                            </ng-container>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field>
+                          <input type="text" placeholder="Product Name" (input)="get_warehouse_product()" matInput [(ngModel)]="search.product_name">                                              
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <th class="w220">
+                      <div class="th-search-acmt">
+                        <mat-form-field>
+                          <input type="text" placeholder="Product Code" (input)="get_warehouse_product()" matInput [(ngModel)]="search.cat_no">
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <th class="w100">&nbsp;</th>
+                    <th class="w100">&nbsp;</th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+            <div class="table-container" *ngIf="product_list.length > 0">
+              <div class="table-content">
+                <table>
+                  <tr *ngFor="let row of product_list;let i=index">
+                    <td class="w200">{{row.brand}}</td>
+                    <td class="w200">{{row.category}}</td>
+                    <td class="w200"><a class="link-btn" (click)="open_wharehouse_dialog(row.cat_no,row.current_stock)" >{{row.product_name}}</a></td>
+                    <td class="w220">{{row.cat_no}}</td>
+                    <td class="w100"><a (click)="open_wharehouse_dialog(row.cat_no,row.current_stock)" mat-button class="view">{{row.current_stock}}</a></td>
+                    <td class="w100 text-center">{{row.stock_alert}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="data-not-found" *ngIf="product_list.length == 0">
+              <img src="assets/img/no-record-found.png" alt="">
+            </div>
+          </div>
+          
+          <div class="cs-table left-right-20" *ngIf="abq_user.login_type != 'admin'">
+            <div class="sticky-head">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th class="w200">Brand</th>
+                    <th class="w200">Category</th>
+                    <th class="w200">Product Code</th>
+                    <th class="w200">Product Name</th>
+                    <th class="w80 text-center">Current Stock</th>
+                    <th class="w80 text-center" *ngIf="instock">Master Packing</th>
+                    <th class="w100 text-center">Action</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="table-head bdrt">
+                <table>
+                  <tr>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Brand" name="brand" [(ngModel)]="search.brand">
+                            <ng-container  *ngFor="let row of brand_list">
+                              <mat-option (click)="get_product_category(search.brand);get_warehouse_product()" value="{{row.brand}}">{{row.brand}}</mat-option>
+                            </ng-container>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Category" name="category" [(ngModel)]="search.category">
+                            <ng-container  *ngFor="let row of category_list">
+                              <mat-option (click)="get_warehouse_product()" value="{{row.category}}">{{row.category}}</mat-option>
+                            </ng-container>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field>
+                          <input type="text" placeholder="Product Code" (input)="get_warehouse_product()" matInput [(ngModel)]="search.cat_no">
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field>
+                          <input type="text" placeholder="Product Name" (input)="get_warehouse_product()" matInput [(ngModel)]="search.product_name">                                              
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <th class="w80">&nbsp;</th>
+                    <th class="w80" *ngIf="instock">&nbsp;</th>
+                    <th class="w100">&nbsp;</th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+            <div class="table-container" *ngIf="product_list.length > 0">
+              <div class="table-content">
+                <table>
+                  <tr *ngFor="let row of product_list;let i=index">
+                    <td class="w200">{{row.brand}}</td>
+                    <td class="w200">{{row.category}}</td>
+                    <td class="w200">{{row.cat_no}}</td>
+                    <td class="w200"><a class="link-btn" mat-button routerLink="/incoming-stock/{{row.ecrpt_cat}}" routerLinkActive="active">{{row.product_name}}</a>
+                    </td>
+                    <td class="w80 text-center">{{row.current_stock}}</td>
+                    <td *ngIf="instock" class="w80 text-center">{{row.master_packing ? row.master_packing : 0}}
+                    </td>
+                    <td class="w100 ">
+                      <a mat-button class="view" routerLink="/incoming-stock/{{row.ecrpt_cat}}" routerLinkActive="active"><i class="material-icons">remove_red_eye</i> View</a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="data-not-found" *ngIf="product_list.length == 0">
+              <img src="assets/img/no-record-found.png" alt="">
+            </div>
+          </div>             
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

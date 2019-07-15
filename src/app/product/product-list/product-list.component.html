@@ -1,0 +1,144 @@
+<div class="main-container" [@routerTransition]>
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container padding0">
+    <div class="master-heading">
+      <div class="page-heading">
+        <img src="assets/img/leads_icon.svg" class="h-icon">
+        <div class="heading-text">
+          <h2>Product</h2>
+          <p>Total Product  " {{product_cn}} "</p>
+        </div>
+      </div>
+      <div class="top-pagination">
+        <ul>
+          <li class="refresh-area">
+            <a class="refresh-btn" (click)="refresh()" mat-raised-button  matTooltip="Refresh"><i class="material-icons"> refresh</i></a>
+          </li>
+          <li>
+            <p>Pages {{pagenumber}} Of {{totalpage}}</p>
+          </li>
+          
+          <li *ngIf="totalpage > 1">
+            <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_product(pagelimit,start-pagelimit)">
+              <i class="material-icons" >keyboard_arrow_left</i>
+            </button>
+          </li>
+          
+          <li *ngIf="totalpage > 1">
+            <input type="text" placeholder="GO TO" name="pagenumber" (keyup.enter)="checkpage();get_product(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+          </li>
+          
+          <li *ngIf="totalpage > 1">
+            <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_product(pagelimit,(start+pagelimit))">
+              <i class="material-icons">keyboard_arrow_right</i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <div class="container-outer pt0">
+    <!-- <app-master-tab-list *ngIf="abq_user.login_type == 'admin' "></app-master-tab-list> -->
+    <!-- [ngClass]="{'tab-container': abq_user.login_type == 'admin'}" -->
+    <div class="container " >
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20">
+            <div class="sticky-head">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th class="w200">Brand</th>
+                    <th class="w200">Category</th>
+                    <th>Product Name</th>
+                    <th class="w200">Product Code</th>
+                    <th class="w80 text-center">Master Packing</th>
+                    <th class="w80 text-center" *ngIf="abq_user.login_type == 'admin'">Current Stock</th>
+                    <th class="w80 text-right">Price</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="table-head bdrt">
+                <table>
+                  <tr>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field>
+                          <input type="text" placeholder="Brand"  matInput [matAutocomplete]="brand" (keyup)="brand_array_filter(product.brand,brand_list,'brand')" (input)="get_product_category(product.brand);get_product()" [matAutocomplete]="brand" name="brand" [(ngModel)]="product.brand">
+                          <mat-autocomplete #brand="matAutocomplete">
+                            <mat-option *ngFor="let data of fltr_brand" (click)="get_product_category(product.brand);get_product()" value="{{data.brand}}">
+                              <small>{{data.brand}}</small></mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field>
+                        </div>
+                      </th>
+                      <th  class="w200">
+                        <div class="th-search-acmt">
+                          <mat-form-field>
+                            <input type="text" placeholder="Category"  matInput [matAutocomplete]="category" (keyup)="category_array_filter(product.category,category_list,'category')" (input)="get_product_subcategory(product.brand,product.category);get_product()" [matAutocomplete]="Catergory" name="category" [(ngModel)]="product.category">
+                            <mat-autocomplete #category="matAutocomplete">
+                              <mat-option  *ngFor="let data of fltr_category" (click)="get_product_subcategory(product.brand,product.category);get_product()" value="{{data.category}}">
+                                <small>{{data.category}}</small></mat-option>
+                              </mat-autocomplete>
+                            </mat-form-field>
+                          </div>
+                        </th>                                 
+                        <th>
+                          <div class="th-search-acmt">
+                            <mat-form-field>
+                              <input type="text" placeholder="Product Name" (input)="get_product()" matInput [(ngModel)]="product.product_name">                                              
+                            </mat-form-field>
+                          </div>
+                        </th>
+                        <th class="w200">
+                          <div class="th-search-acmt">
+                            <mat-form-field>
+                              <input type="text" placeholder="Product Code" (input)="get_product()" matInput [(ngModel)]="product.cat_no">                                              
+                            </mat-form-field>
+                          </div>
+                        </th>
+                        <th class="w80 ">&nbsp;</th>
+                        <th class="w80" *ngIf="abq_user.login_type == 'admin'">&nbsp;</th>
+                        <th class="w80 p0">&nbsp;</th>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="table-container" *ngIf="product_list.length > 0">
+                  <div class="table-content">
+                    <table>
+                      <tr *ngFor="let row of product_list;let i=index">
+                        <td class="w200">{{row.brand}}</td>
+                        <td class="w200">{{row.category}}</td>
+                        <td><a class="link-btn" routerLink="/product-detail/{{row.ecrpt_id}}" routerLinkActive="active" mat-button>{{row.product_name}}</a></td>
+                        <td class="w200">{{row.cat_no}}</td>
+                        <td class="w80 text-center">{{row.master_packing}}</td>
+                        <td class="w80 text-center" *ngIf="abq_user.login_type == 'admin'">{{row.current_stock}}</td>    
+                        <td class="w80 text-right">&#x20B9; {{row.price}}
+                          <div class="action-btns">
+                            <a mat-button class="view" routerLink="/product-detail/{{row.ecrpt_id}}"><i class="material-icons">remove_red_eye</i> View</a>
+                            <button mat-button class="delete"  (click)="deleteproduct(row.id,i)"><i class="material-icons">delete_sweep</i> Delete</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>                     
+                <div class="data-not-found" *ngIf="product_list.length == 0">
+                  <img src="assets/img/no-record-found.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </div>

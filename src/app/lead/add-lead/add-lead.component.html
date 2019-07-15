@@ -1,0 +1,258 @@
+<div class="main-container" [@routerTransition]>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>Lead</h2>
+        <p>Add New Lead</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container-outer">
+  <div class="container" >
+    <div class="row">
+      <div class="col s4">
+        <div class="sprate-box padding0">
+          <div class="cs-logs">
+            <div class="top-heading">
+              <h2>SELECT TYPE</h2>
+            </div>
+            <div class="logs-outer">
+              <div class="logs-list">
+               <div class="lead-type">
+                  <mat-radio-group class="select-type">
+                      <mat-radio-button value="1">Retailer</mat-radio-button>
+                      <mat-radio-button value="2">Direct Dealer</mat-radio-button>
+                      <mat-radio-button value="3">Distributor</mat-radio-button>
+                    </mat-radio-group>
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col s8">
+        <div class="sprate-box">
+          <div class="cs-heading">
+            <h2>BASIC INFORMATION</h2>
+            
+            <span class="required">Indicates required fields ( <sup>*</sup> )</span>
+          </div>
+          
+          <mat-divider class="left-right-15 mt10"></mat-divider>
+          <div class="from-fields">
+            <div class="row">
+              <!-- <div class="col s4">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <mat-select placeholder="Favorite food">
+                      <mat-option>Product 1</mat-option>
+                      <mat-option>Product 2</mat-option>
+                      <mat-option>Product 3</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div> -->
+              
+            </div>
+            
+            <div class="row">
+              <div class="col s8 pl0">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input matInput placeholder="Counter Name">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s4 empty pr0">
+              </div>
+            </div>
+            
+            <div class="row mb20">
+              <div class="col s4 pl0">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input matInput placeholder="Email">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s4">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input matInput placeholder="Landline ">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s4 pr0">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input matInput placeholder="GST No.">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+          <div class="cs-heading">
+            <h2>CONTACT PERSON INFORMATION</h2>
+          </div>
+          <mat-divider class="left-right-15 mt10"></mat-divider>
+          
+          <div class="from-fields">
+            <div class="row">
+              <div class="col s4 pl0">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input matInput placeholder="Name">
+                  </mat-form-field>
+                </div>
+              </div>
+              
+              <div class="col s4">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <input matInput placeholder="Mobile No. 1">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s4 pr0">
+                <div class="control-field pr80">
+                  <mat-form-field class="cs-input">
+                    <input matInput placeholder="Mobile No. 2">
+                  </mat-form-field>
+                  <div class="plus-btn">
+                    <button mat-raised-button color="accent">
+                      <i class="material-icons">add</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="row">
+            <div class="col s12 padding0">
+              <div class="cs-table left-right-20">
+                <div class="table-head">
+                  <table>
+                    <tr>
+                      <th>Name</th>
+                      <th class="w200">Mobile No. 1</th>
+                      <th class="w200 bdr0">Mobile No. 2</th>
+                      <th class="w130">&nbsp;</th>
+                    </tr>
+                  </table>
+                </div>
+                
+                <div class="table-container">
+                  <div class="table-content">
+                    <table>
+                      <tr>
+                        <td>Pankaj Verma</td>
+                        <td class="w200">9856245812</td>
+                        <td class="w200">....</td>
+                        <td class="w130">
+                          <a mat-button class="del-btn">Delete</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Ramu Kumar Sharma</td>
+                        <td>9856245812</td>
+                        <td>9587425896</td>
+                        <td>
+                          <a mat-button class="del-btn">Delete</a>
+                        </td>
+                      </tr>
+                      
+                    </table>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+          <div class="cs-heading">
+            <h2>ADDRESS INFORMATION</h2>
+          </div>
+          <mat-divider class="left-right-15 mt10"></mat-divider>
+          
+          <div class="from-fields">
+            <div class="row">
+              <div class="col s4 pl0">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <mat-select placeholder="Country">
+                      <mat-option>India</mat-option>
+                      <mat-option>USA</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              
+              <div class="col s4">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <mat-select placeholder="State">
+                      <mat-option>Haryana</mat-option>
+                      <mat-option>Rajsthan</mat-option>
+                      <mat-option>Rajsthan</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col s4 pr0">
+                <div class="control-field">
+                  <mat-form-field class="cs-input">
+                    <mat-select placeholder="City">
+                      <mat-option>Faridabad</mat-option>
+                      <mat-option>Gurugram</mat-option>
+                      <mat-option>Rewari</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+                <div class="col s4 pl0">
+                    <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Pincode">
+                        </mat-form-field>
+                      </div>
+                </div>
+                <div class="col s8 pr0">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <textarea matInput placeholder="Address"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <div class="cs-btn fixedd mt32 text-right">
+                <div class="in-btn">
+                  <button mat-raised-button color="accent">Save</button>
+                </div>
+              </div>
+        </div>
+    </div>
+  </div>
+</div>
+  
+</div>
+
+<div class="h50"></div>
+

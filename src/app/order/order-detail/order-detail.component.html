@@ -1,0 +1,896 @@
+<div class="main-container">
+    <div *ngIf="loader"> 
+        <div class="cs-loader">
+            <mat-spinner class="loader"></mat-spinner> 
+        </div>
+    </div>
+    <div class="middle-container">
+        <div class="page-heading">
+            <div class="heading-text bc-space" *ngIf="params || (page_type != 'packing' && page_type != 'invoice')">
+                <div class="back-btn">
+                    <a mat-button routerLink="/order-list/{{page_type}}" routerLinkActive="active"><i class="material-icons">arrow_right_alt</i></a>
+                </div>
+                <h2>{{customer_detail.name | titlecase}}</h2>
+                <p class="light">#ORD{{order_detail.id}} / {{order_detail.date_created | date:'d MMM, y h:m a'}}</p>
+            </div>
+            <div class="heading-text bc-space" *ngIf="!params && (page_type == 'packing' || page_type == 'invoice')">
+                <div class="back-btn">
+                    <a mat-button routerLink="/order-list/{{page_type}}" routerLinkActive="active"><i class="material-icons">arrow_right_alt</i></a>
+                </div>
+                <h2>{{packing.name | titlecase}}</h2>
+                <p class="light">#ORD{{packing.order_id}} / {{packing.order_date | date:'d MMM, y h:m a'}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-outer">   
+        <div class="container" *ngIf="!params && (page_type != 'pending' && page_type != 'assign_to_warehouse' && page_type != 'dispatch') ">
+            
+            <div class="row" *ngIf="packing">
+                <div class="col s6 mt15 mb15">
+                    <div class="sprate-box padding0">
+                        <div class="full-address">
+                            <div class="top-heading">
+                                <h2>CUSTOMER DETAIL</h2>
+                            </div>
+                            
+                            <div class="ds-from-fields">
+                                
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>Name</p>
+                                        <p>{{packing.name | titlecase}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>Email</p>
+                                        <p>{{packing.email == ''? 'N.A' : packing.email}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>Mobile No.</p>
+                                        <p>{{packing.mobile_1}}</p>
+                                    </div>
+                                </div>
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>address</p>
+                                        <p>{{packing.address | titlecase}}, {{packing.city | titlecase}} {{packing.district | titlecase}}, {{packing.state | titlecase}} {{packing.pincode}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6 mt15" *ngIf="packing.invoice_no!=''">
+                    <div class="sprate-box padding0">
+                        <div class="full-address">
+                            <div class="top-heading">
+                                <h2>Invoice Detail</h2>
+                            </div>
+                            <div class="cs-table">
+                                <div class="table-head">
+                                    <table>
+                                        <tr>
+                                            <th>Invoice No</th>
+                                            <th>Incoice Date</th>
+                                            <th>Invoice Amount</th>
+                                            <th>Invoice Copy</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="table-container">
+                                    <div class="table-content">
+                                        <table>
+                                            <tr>
+                                                <td>{{packing.invoice_no}}</td>
+                                                <td>{{packing.invoice_date | date : 'd MMM, y'}} </td>
+                                                <td>{{packing.net_amount}}</td>
+                                                <td *ngIf="packing.image !=''"><a mat-button (click)="download_invoice(packing.image)">Download</a></td>
+                                                <td *ngIf="packing.image ==''">Not available</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                <div class="col s12">
+                    <div class="heading-bg left-right-20 mb10">
+                        <h2>PACKING INFORMATION</h2>
+                    </div>
+                    <div class="cs-table left-right-20">
+                        <div class="table-head">
+                            <table>
+                                <tr>
+                                    <th>Product Details</th>
+                                    <th class="w150 text-center">Product Code</th>
+                                    <th class="w100 text-center">Packed QTY</th>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-content">
+                                <table>                      
+                                    <tr *ngFor="let row of packing_item;let i=index;">
+                                        <td>{{row.brand | titlecase}} - {{row.category | titlecase}} - {{row.product_name | titlecase}}</td>
+                                        <td class="w150 text-center">{{row.cat_no}}</td>
+                                        <td class="w100 text-center">{{row.pack_qty}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="row" *ngIf="packing && packing.invoice_no == ''">
+                <div class="col s12">
+                    <div class="sprate-box">
+                        
+                        <div class="cs-heading">
+                            <h2>GENERATE INVOICE</h2>
+                            <span class="required">Indicates required fields ( <sup>*</sup> )</span>
+                        </div>
+                        
+                        <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+                        
+                        <mat-divider class="left-right-15 mt10"></mat-divider>
+                        <div class="from-fields">
+                            <div class="row">                                    
+                                <div class="col s2">
+                                    <div class="control-field">
+                                        <mat-form-field class="cs-input">
+                                            <input matInput type="number" placeholder="Invoice No." name="invoice_no" [(ngModel)]="data.invoice_no" required>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col s2">
+                                    <div class="control-field">
+                                        <mat-form-field class="cs-input">
+                                            <input matInput [matDatepicker]="picker" placeholder="Invoice Date" name="invoice_date" [(ngModel)]="data.invoice_date" required>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col s2 ">
+                                    <div class="control-field">
+                                        <mat-form-field class="cs-input inr-input">
+                                            <input matInput placeholder="Invoice Amount" type="number" name="invoice_amount" [(ngModel)]="data.invoice_amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="control-field">
+                                        <div class="cs-input">
+                                            <label class="file-input">
+                                                <input type="file"  style="display: none;" (change)="selectFile($event)">
+                                                <p>UPLOAD INVOICE</p>
+                                                <span *ngIf="upload_file">{{upload_file}}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s2">
+                                    <div class="cs-btn mt19 text-right">
+                                        <div class="in-btn wp100">
+                                            <button class="wp100" mat-raised-button color="accent" [disabled]="!data.invoice_no || !data.invoice_date || !data.invoice_amount" (click)="generate_invoice()">Generate</button>
+                                        </div>
+                                    </div>                       
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" *ngIf="params || page_type == 'pending' || page_type == 'assign_to_warehouse' || page_type == 'dispatch'">
+            <div class="row mt15">
+                <div class="col s12">
+                    <div class="sprate-box">
+                        <div class="details-info">
+                            <div class="basic-details padding15">
+                                <div class="profile-info">
+                                    <ul>
+                                        <li class="col s3">
+                                            <div class="cs-box">
+                                                <img src="assets/img/username.svg" class="fix-img h35">
+                                                <span>Created By</span>
+                                                <p class="link-clr" *ngIf="order_detail.user_type == 'sales'">{{user_detail.name | titlecase}}</p>
+                                                <p class="link-clr" *ngIf="order_detail.user_type == 'customer'">{{customer_detail.name | titlecase}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="col s9 cs-figure">
+                                        <ul>
+                                            <li>
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Total Qty</span>
+                                                        <p>{{order_detail.total_item}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Order Amount</span>
+                                                        <p>&#8377; {{order_detail.order_total}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="outer" *ngIf="order_detail.status == 'pending'">
+                                                    <div class="inner">
+                                                        <span>Action</span>
+                                                        <p class="underline-link pointer" (click)="change_status()">Click here to assign order</p>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="outer" *ngIf="order_detail.status != 'pending'">
+                                                    <div class="inner">
+                                                        <span>Status</span>
+                                                        <p>{{order_detail.status | titlecase}}ed</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li *ngIf="assign || order_detail.assign_warehouse != '0'">
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Assign Warehouse</span>
+                                                        <select class="wp100 h30" name="assign_warehouse" [disabled]="order_detail.status == 'deliver'" (change)="assign_warehouse(order_detail)" [(ngModel)]="order_detail.assign_warehouse">
+                                                            <option *ngFor="let row of warehouse_list" value="{{row.id}}">{{row.warehouse_name | titlecase}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <mat-divider class="mt15 mb15" *ngIf="dispatch_detail"></mat-divider>                               
+                                <div class="col s6 cs-figure" *ngIf="dispatch_detail">
+                                    <ul>
+                                        <li>
+                                            <div class="outer">
+                                                <div class="inner">
+                                                    <span>Dispatch Date</span>
+                                                    <p>{{dispatch_detail.date_created | date: 'd MMM , y h:m a'}}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="outer">
+                                                <div class="inner">
+                                                    <span>Dispatch From</span>
+                                                    <p>{{dispatch_detail.warehouse_name | titlecase}}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="outer">
+                                                <div class="inner">
+                                                    <span>Total Item</span>
+                                                    <p>{{dispatch_detail.total_item}}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col s7 mt15">
+                    <div class="sprate-box padding0">
+                        <div class="full-address">
+                            <div class="top-heading">
+                                <h2>CUSTOMER DETAIL</h2>
+                            </div>
+                            
+                            <div class="ds-from-fields">
+                                
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>Name</p>
+                                        <p>{{customer_detail.name | titlecase}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>Email</p>
+                                        <p>{{customer_detail.email == ''? 'N.A' : customer_detail.email}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>Mobile No.</p>
+                                        <p>{{customer_detail.mobile_1}}</p>
+                                    </div>
+                                </div>
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>address</p>
+                                        <p>{{customer_detail.address | titlecase}}, {{customer_detail.city | titlecase}} {{customer_detail.district | titlecase}}, {{customer_detail.state | titlecase}} {{customer_detail.pincode}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col s5 mt15">
+                    <div class="sprate-box padding0">
+                        <div class="full-address" *ngIf="order_credit_detail.length != 0">
+                            <div class="top-heading" *ngIf="order_payment.length > 0">
+                                <h2>Credit Details</h2>
+                                <div class="cs-date">
+                                    <ul>
+                                        <li><a (click)="toggle = !toggle">View All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="cs-table">
+                                <div class="table-head">
+                                    <table>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>No. of days</th>
+                                            <th class="w120">Amount</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="table-container">
+                                    <div class="table-content">
+                                        <table>
+                                            <tr>
+                                                <td>{{order_credit_detail.date_created | date:'d MMM y'}}</td>
+                                                <td>{{order_credit_detail.no_of_days}}</td>
+                                                <td class="w120">&#8377; {{order_credit_detail.credit_amount}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="full-address" *ngIf="order_credit_detail.length == 0">
+                            <div class="top-heading" >
+                                <div *ngIf="order_payment.length>0">
+                                    <h2>{{order_payment['0']['mode'] | titlecase}}</h2>
+                                </div>
+                                
+                                <div class="cs-date" *ngIf="order_payment.length > 1">
+                                    <ul>
+                                        <li><a (click)="toggle = !toggle">View All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="cs-table" *ngIf="order_payment[0].mode == 'cheque'">
+                                <div class="table-head">
+                                    <table>
+                                        <tr>
+                                            <th>Bank</th>
+                                            <th>Cheque No.</th>
+                                            <th class="w120">Cheque Date</th>
+                                            <th class="text-right w90">Amount</th>
+                                            <th></th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="table-container">
+                                    <div class="table-content">
+                                        <table>
+                                            <tr>
+                                                <td>{{order_payment[0].bank}}</td>
+                                                <td>{{order_payment[0].cheque_no}}</td>
+                                                <td class="w120">{{order_payment[0].cheque_date}}</td>
+                                                <td class="text-right w90">&#8377; {{order_payment[0].amount}}</td>
+                                                <td>
+                                                    <div class="cs-btn left-auto" *ngIf="order_payment[0].varify != 'verified'">
+                                                        <div class="in-btn">
+                                                            <a mat-raised-button (click)="varify_payment(order_payment[0].id,'varify')" color="accent" >Verify</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tags" *ngIf="order_payment[0].varify == 'verified'">
+                                                        <ul>
+                                                            <li>
+                                                                <span class="green-bg" style="color: #fff;"><i class="material-icons">done</i> Verified</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="pointer red-bg" (click)="varify_payment(order_payment[0].id,'undo')" style="color: rgb(255, 255, 255);"><i class="material-icons">history</i> Undo</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="cs-table" *ngIf="order_payment[0].mode == 'card'">
+                                <div class="table-head">
+                                    <table>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th class="text-right w90">Amount</th>
+                                            <th></th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="table-container">
+                                    <div class="table-content">
+                                        <table>
+                                            <tr>
+                                                <td>{{order_payment[0].trans_id}}</td>
+                                                <td class="text-right w90">&#8377; {{order_payment[0].amount}}</td>
+                                                <td>
+                                                    <div class="cs-btn left-auto" *ngIf="order_payment[0].varify != 'verified'">
+                                                        <div class="in-btn">
+                                                            <a mat-raised-button (click)="varify_payment(order_payment[0].id,'varify')" color="accent" >Verify</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tags" *ngIf="order_payment[0].varify == 'verified'">
+                                                        <ul>
+                                                            <li>
+                                                                <span class="green-bg" style="color: #fff;"><i class="material-icons">done</i> Verified</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="pointer red-bg" (click)="varify_payment(order_payment[0].id,'undo')" style="color: rgb(255, 255, 255);"><i class="material-icons">history</i> Undo</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="cs-table" *ngIf="order_payment[0].mode == 'cash'">
+                                <div class="table-head">
+                                    <table>
+                                        <tr>
+                                            <th class="text-right w90">Amount</th>
+                                            <th></th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="table-container">
+                                    <div class="table-content">
+                                        <table>
+                                            <tr>
+                                                <td class="text-right w90">&#8377; {{order_payment[0].amount}}</td>
+                                                <td>
+                                                    <div class="cs-btn left-auto" *ngIf="order_payment[0].varify != 'verified'">
+                                                        <div class="in-btn">
+                                                            <a mat-raised-button (click)="varify_payment(order_payment[0].id,'varify')" color="accent" >Verify</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tags" *ngIf="order_payment[0].varify == 'verified'">
+                                                        <ul>
+                                                            <li>
+                                                                <span class="green-bg" style="color: #fff;"><i class="material-icons">done</i> Verified</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="pointer red-bg" (click)="varify_payment(order_payment[0].id,'undo')" style="color: rgb(255, 255, 255);"><i class="material-icons">history</i> Undo</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>    
+            <div class="row" *ngIf="(page_type=='pending' || page_type=='assign_to_warehouse') && order_item.length > 0">
+                <div class="col s12">
+                    <div class="heading-bg left-right-20 mb0">
+                        <h2>PRODUCT INFORMATION</h2>
+                    </div>
+                    <div class="cs-table left-right-20">
+                        <div class="table-head">
+                            <table>
+                                <tr>
+                                    <th>Product Detail</th>
+                                    <th class="w150">Product Code</th>
+                                    <th class="w80 text-center">QTY</th>
+                                    <th class="w100 text-center">Rate</th>
+                                    <th class="w100 text-center" *ngIf="page_type == 'pending'">Amount</th>
+                                    <!-- *ngIf="(order_detail.status == 'pending')" -->
+                                    <th class="text-center w300">Available Stock</th>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="table-container" *ngIf="order_item.length > 0">
+                            <div class="table-content">
+                                <table>
+                                    <tr *ngFor="let row of order_item;let i=index;">
+                                        <td>{{row.brand}} - {{row.category}} - {{row.product_name | titlecase}}</td>
+                                        <td class="w150"><a mat-button (click)="open_wharehouse_dialog(row.cat_no)" class="link-btn">{{row.cat_no | uppercase}}</a></td>
+                                        <td class="w80 text-center" *ngIf="page_type=='pending'"><div class="td-input"><input type="number" name="qty{{i}}" (keyup)="update_qty(i)" (change)="update_qty(i)" [(ngModel)]="row.qty"></div></td>
+                                        <td class="w80 text-center" *ngIf="page_type!='pending'">{{row.qty}}</td>
+                                        
+                                        <td class="w100 text-center" *ngIf="page_type=='pending'"><div class="td-input"><input type="number"  name="price{{i}}" (keyup)="update_qty(i)" (change)="update_qty(i)" [(ngModel)]="row.price"></div></td>
+                                        <td class="w100 text-center" *ngIf="page_type!='pending'">{{row.price}}</td>
+                                        
+                                        <td class="w100 text-center" *ngIf="page_type == 'pending'"><div class="td-input"><input type="number" readonly="{{page_type!='pending'}}" (keyup)="update_amount(i)" (change)="update_amount(i)" name="total_amount{{i}}" [(ngModel)]="row.total_amount"></div></td>
+                                        
+                                        <td class="w300" *ngIf="row.warehouse_stock">
+                                            {{row.warehouse_stock.length == 0 ? 'No Stock Available' : ''}}
+                                            
+                                            <div class="cs-tags" *ngIf="row.warehouse_stock && row.warehouse_stock.length > 0 ">
+                                                <ul>
+                                                    <li *ngFor="let data of row.warehouse_stock"><p>{{data.warehouse_name | titlecase}}</p> <span>{{data.current_stock}}</span></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="page_type == 'pending'">
+                                        <th colspan="2" class="text-right">Total : </th>
+                                        <th class="w80">{{total_qty}}</th>
+                                        <th class="w100">{{total_rate}}</th>
+                                        <th class="w100">{{total_amount}}</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+            <div class="row" *ngIf="packing_list && packing_list.length > 0">
+                <div class="col s12">
+                    <div class="heading-bg left-right-20 mb0">
+                        <h2>PACKING INFORMATION</h2>
+                    </div>
+                    <div class="cs-table left-right-20">
+                        <div class="table-head">
+                            <table>
+                                <tr>
+                                    <th>Invoice Detail</th>
+                                    <th class="w130 text-center">Invoice Status</th>
+                                    <th class="w80 text-center">Packed QTY</th>
+                                    <th class="w130 text-center">Packing Status</th>
+                                    <th class="w100 text-center">Action</th>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-content">
+                                <table>
+                                    <tr *ngFor="let row of packing_list;let i=index;">
+                                        <td *ngIf="row.invoice_no == ''">N.A</td>
+                                        <td *ngIf="row.invoice_no != ''">Invoice Date - {{row.invoice_date | date:'d MMM, y h:m:s a'}} , Invoice No - {{row.invoice_no}} , Invoice Amount - {{row.net_amount}}</td>
+                                        <td class="w130 text-center">{{row.invoice_no == ''? 'Pending' : 'Generated'}}</td>
+                                        <td class="w80 text-center">{{row.item}}</td>
+                                        <td class="w130 text-center">{{row.status == 'deliver'? 'Delivered' : row.status | titlecase}}</td>
+                                        <td class="w100 text-center"><a mat-button (click)="open_dialog(row.packing_id)" class="link-btn">View</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <!-- <div class="row" *ngIf="packing_list && packing_list.invoice_no == ''">
+                <div class="col s12">
+                    <div class="sprate-box">
+                        <div class="from-fields">
+                            <div class="row">                                    
+                                <div class="col s2">
+                                    <div class="control-field">
+                                        <mat-form-field class="cs-input">
+                                            <input matInput type="number" placeholder="Invoice No." name="invoice_no" [(ngModel)]="data.invoice_no" required>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col s2">
+                                    <div class="control-field">
+                                        <mat-form-field class="cs-input">
+                                            <input matInput [matDatepicker]="picker" placeholder="Invoice Date" name="invoice_date" [(ngModel)]="data.invoice_date" required>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col s2 ">
+                                    <div class="control-field">
+                                        <mat-form-field class="cs-input inr-input">
+                                            <input matInput placeholder="Invoice Amount" type="number" name="invoice_amount" [(ngModel)]="data.invoice_amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col s2">
+                                    <div class="control-field">
+                                        <div class="cs-input">
+                                            <label class="file-input">
+                                                <input type="file"  style="display: none;" (change)="selectFile($event)">
+                                                <p>UPLOAD INVOICE</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s2">
+                                    <div class="cs-btn fixedd mt32 text-right">
+                                        <div class="in-btn" style="margin-right: 112px;">
+                                            <button style="width: 220px;" mat-raised-button color="accent" [disabled]="!data.invoice_no || !data.invoice_date || !data.invoice_amount" (click)="generate_invoice()">Generate Invoice</button>
+                                        </div>
+                                    </div>                       
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    
+</div>
+
+<div class="h50"></div>
+
+
+
+
+<div *ngIf="page_type == 'pending'" id="print-section" class="print-section" hidden>
+    <table  width="1024px" style="border-collapse: collapse;">
+        <tr>
+            <td width="1024px">
+                <table class="table1" width="1024px">
+                    <tr>
+                        <td width="324px">
+                            <h2 style="line-height: 10px; font-size: 22px; padding: 30px 0px; color: #7596f7;">Order Detail</h2>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td width="600" style="text-align: left; background: #fff; vertical-align: top;">
+                            <h2 style="line-height: 10px; font-size: 14px;">Bill To</h2>
+                            <p style="line-height: 10px; font-size: 12px;"> <strong>Name : </strong>{{customer_detail.name | titlecase}} </p>
+                            <p style="line-height: 10px; font-size: 12px;"><strong>Email : </strong>{{customer_detail.email == ''? 'N.A' : customer_detail.email}}</p>
+                            <p style="line-height: 10px; font-size: 12px;"><strong>Mobile : </strong>{{customer_detail.mobile_1}}</p>
+                        </td>
+                        <td text-align="right"  style="text-align: right;  background: #fff;">
+                            <table width="424px" style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Order#</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">#ORD{{order_detail.id}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Order Date</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">{{order_detail.date_created | date: 'd MMM y H:m:s a'}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Total Qty</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">{{order_detail.total_item}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top; padding-top: 30px;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: left; background: #fff; vertical-align: top;">
+                            <h2 style="line-height: 10px; font-size: 14px;">Ship To</h2>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.address | titlecase}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.pincode}} {{customer_detail.city}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.district}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.state}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">India</p>
+                        </td>
+                        <td  style="text-align: right;  background: #fff;">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td width="1024"  style="text-align: right;  background: #fff;">
+                            <table  style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="width:24px; text-align: center; border: 1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">#</td>
+                                    <td style="width:200px; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Brand</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Category</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Sub Category</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Product Name</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Product Code</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Qty</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Rate</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Amount</td>
+                                </tr>
+                                <tr *ngFor="let row of order_item;let i=index;">
+                                    <td style="width:24px; text-align: center; border: 1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{(i+1)}}</td>
+                                    <td style="width:200px; border:1px solid #ccc; vertical-align: top; font-size: 14px; background: #fff; padding: 5px;">{{row.brand}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.category}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.sub_category}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.product_name | titlecase}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px;  padding: 5px;">{{row.cat_no | uppercase}}</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.qty}}</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.price}}</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.total_amount}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td width="700px"  style="text-align: right; vertical-align: top;  background: #fff;  padding-top: 30px;">
+                            <table  style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="text-align: center; background: #fff; vertical-align: top; font-size: 16px; text-align: left; padding: 5px;">Thanks for the business.</td>
+                                </tr>
+                                
+                            </table>
+                        </td>
+                        <td  style="text-align: right;  background: #fff;  padding-top: 30px;">
+                            <table width="324px" style="border-collapse: collapse;">
+                                <tr>
+                                    <td  width="120"  style="border-bottom:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; font-weight: 600; text-align: right; padding: 15px 5px;">Order Total</td>
+                                    <td style="border-bottom:1px solid #ccc;  vertical-align: top; background: #fff; font-size: 14px; text-align: right; padding: 15px 5px;">₹{{total_amount}}</td>
+                                </tr>
+                                <tr>
+                                    <td  width="120"  style="border-bottom:1px solid #ccc; vertical-align: top; background: #fff; text-align: right; color: #1f86ca; font-size: 14px; font-weight: 600; text-align: right; padding: 15px 5px;">Total Payment</td>
+                                    <td style="border-bottom:1px solid #ccc; vertical-align: top; background: #fff; text-align: right; color: #1f86ca; font-size: 14px; text-align: right; padding: 15px 5px;">₹{{order_detail.payment_total}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="cs-fab" *ngIf="page_type=='pending'">
+    <button mat-fab (click)="print()"><i class="material-icons">print</i></button>
+</div>
+
+
+<div class="pop-right-data" [ngClass] ="{'active' : toggle == true}">
+    <div class="indv">
+        <button mat-fab class="cancle-btn" (click)="toggle = !toggle"><i class="material-icons">arrow_forward</i></button>
+        <div class="bxc" *ngIf="order_credit_detail.length !=0">
+            <div class="heading">
+                <h2>Credit Details</h2>
+            </div>
+            
+            <div class="one-one">
+                <div class="cs-figure">
+                    <p>Date</p>
+                    <p>{{order_credit_detail.date_created | date:'d MMM y'}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>No.of days</p>
+                    <p>{{order_credit_detail.no_of_days | date:'d MMM y'}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>Amount</p>
+                    <p>{{order_credit_detail.date_created | date:'d MMM y'}}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bxc" *ngFor="let row of order_payment">
+            <div class="heading">
+                <h2>{{row.mode | titlecase}}</h2>
+            </div>
+            
+            <div class="one-one" *ngIf="row.mode == 'cheque'">
+                <div class="cs-figure">
+                    <p>Bank</p>
+                    <p>{{row.bank | titlecase}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>Cheque No.</p>
+                    <p>{{row.cheque_no}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>Cheque Date</p>
+                    <p>{{row.cheque_date | date: 'd MMM , y'}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>Amount</p>
+                    <p>{{row.amount}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>Status</p>
+                    <p *ngIf="row.varify == 'verified'">Verified</p>
+                    <div class="cs-btn left-auto" *ngIf="row.varify != 'verified'">
+                        <div class="in-btn">
+                            <a mat-raised-button (click)="varify_payment(row.id,'varify')" color="accent" >Verify</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-figure" *ngIf="row.varify == 'verified'">
+                    <p>Action</p>
+                    <div class="cs-btn left-auto">
+                        <div class="in-btn">
+                            <a mat-raised-button (click)="varify_payment(row.id,'undo')" color="accent" >Undo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="one-one" *ngIf="row.mode == 'card'">
+                <div class="cs-figure">
+                    <p>Transaction Id</p>
+                    <p>{{row.trans_id}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>Amount</p>
+                    <p>{{row.amount}}</p>
+                </div>
+                <div class="cs-figure">
+                    <p>Status</p>
+                    <p *ngIf="row.varify == 'verified'">Verified</p>
+                    <div class="cs-btn left-auto" *ngIf="row.varify != 'verified'">
+                        <div class="in-btn">
+                            <a mat-raised-button (click)="varify_payment(row.id,'varify')" color="accent" >Verify</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-figure" *ngIf="row.varify == 'verified'">
+                    <p>Action</p>
+                    <div class="cs-btn left-auto">
+                        <div class="in-btn">
+                            <a mat-raised-button (click)="varify_payment(row.id,'undo')" color="accent" >Undo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="one-one" *ngIf="row.mode == 'cash'">
+                <div class="cs-figure wp50">
+                    <p>Amount</p>
+                    <p>{{row.amount}}</p>
+                </div>
+                <div class="cs-figure wp50">
+                    <p>Status</p>
+                    <p *ngIf="row.varify == 'verified'">Verified</p>
+                    <div class="cs-btn left-auto" *ngIf="row.varify != 'verified'">
+                        <div class="in-btn">
+                            <a mat-raised-button (click)="varify_payment(row.id,'varify')" color="accent" >Verify</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-figure" *ngIf="row.varify == 'verified'">
+                    <p>Action</p>
+                    <div class="cs-btn left-auto">
+                        <div class="in-btn">
+                            <a mat-raised-button (click)="varify_payment(row.id,'undo')" color="accent" >Undo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

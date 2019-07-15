@@ -1,0 +1,293 @@
+<div class="main-container" [@routerTransition]>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>Product</h2>
+        <p>Add New Product</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container-outer">
+    <app-master-tab *ngIf="abq_user.login_type == 'admin' "></app-master-tab>
+    <div class="container" [ngClass]="{'tab-container': abq_user.login_type == 'admin'}">
+      <form #f="ngForm" (ngSubmit)="f.valid && add_product()">
+        <div class="row">
+          <div class="col s12">
+            <div class="sprate-box">
+              <div class="cs-heading">
+                <h2>BASIC INFORMATION</h2>
+                
+                <span class="required">Indicates required fields ( <sup>*</sup> )</span>
+              </div>
+              
+              <mat-divider class="left-right-15 mt10"></mat-divider>
+              <div class="from-fields">
+                <div class="row">
+                  <div class="col s4 pl0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input select-input auto-select" [ngClass]="{'is-invalid':!product.brand && f.submitted }">
+                        <input matInput placeholder="Brand" (keyup)="brand_array_filter(product.brand,brand_list,'brand')" [matAutocomplete]="brand" name="brand" [(ngModel)]="product.brand" required>
+                        <mat-autocomplete #brand="matAutocomplete">
+                          <mat-option *ngFor="let data of fltr_brand" (click)="get_product_category(product.brand)" value="{{data.brand}}">
+                            <small>{{data.brand}}</small>
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input select-input auto-select" [ngClass]="{'is-invalid':!product.category && f.submitted }">
+                        <input matInput placeholder="Catergory" (keyup)="category_array_filter(product.category,category_list,'category')" [matAutocomplete]="Catergory" name="category" [(ngModel)]="product.category" required>
+                        <mat-autocomplete #Catergory="matAutocomplete">
+                          <mat-option *ngFor="let data of fltr_category" (click)="get_product_subcategory(product.brand,product.category)" value="{{data.category}}">
+                            <small>{{data.category}}</small>
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4 pr0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input select-input auto-select" [ngClass]="{'is-invalid':!product.subcategory && f.submitted }">
+                        <input matInput placeholder="Sub Category" (keyup)="subcategory_array_filter(product.subcategory,subcategory_list,'sub_category')" [matAutocomplete]="Subcategory"  name="subcategory" [(ngModel)]="product.subcategory" required>
+                        <mat-autocomplete #Subcategory="matAutocomplete">
+                          <mat-option *ngFor="let data of fltr_sub_category" value="{{data.sub_category}}">
+                            <small>{{data.sub_category}}</small>
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <div class="row">
+                  <div class="col s8 pl0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input" [ngClass]="{'is-invalid':!product.product_name && f.submitted }">
+                        <input matInput placeholder="Product Name" name="product_name" [(ngModel)]="product.product_name" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4 pr0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input" [ngClass]="{'is-invalid':!product.product_code && f.submitted }">
+                        <input matInput placeholder="Product Code" name="product_code" (input)="check_product_code()" [(ngModel)]="product.product_code" required>
+                      </mat-form-field>
+                      <span *ngIf="already">
+                        Product already exist
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col s4 pl0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <input matInput placeholder="Master Packing" name="master_packing" (keypress)="MobileNumber($event)" [(ngModel)]="product.master_packing" required>
+                      </mat-form-field>                      
+                    </div>
+                  </div>
+                  <div class="col s4 pr0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input select-input auto-select" [ngClass]="{'is-invalid':!product.unit && f.submitted }">
+                        <input matInput [matAutocomplete]="unit" placeholder="Unit of Measurement" type="text" name="unit" [(ngModel)]="product.unit" required>
+                        <mat-autocomplete #unit="matAutocomplete">
+                          <mat-option value="Pcs."><small>Pcs.</small></mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <input matInput placeholder="Min Qty" name="min_qty" (keypress)="MobileNumber($event)" [(ngModel)]="product.min_qty" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="row mb20">
+                  <!-- <div class="col s4 pl0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <input matInput placeholder="Current Stock" name="cur_stock" (keypress)="MobileNumber($event)" [(ngModel)]="product.cur_stock" required>
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                  <div class="col s4 pr0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input inr-input">
+                        <input matInput placeholder="Price" type="text" name="price" (keypress)="MobileNumber($event)" [(ngModel)]="product.price" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+              <div class="cs-heading">
+                <h2>PRODUCT FEATURES</h2>
+              </div>
+              <mat-divider class="left-right-15 mt10"></mat-divider>
+              <div class="from-fields">
+                <div class="row">
+                  <div class="col s4 pl0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input select-input auto-select" [ngClass]="{'is-invalid':!feature.type && f.submitted }">
+                        <input matInput placeholder="Enter Type" [matAutocomplete]="feat_type" name="type" #type [(ngModel)]="feature.type" >
+                        <mat-autocomplete #feat_type="matAutocomplete">
+                          <mat-option value="color"><small>Color</small></mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s8 pr0">
+                    <div class="control-field pr80">
+                      <mat-form-field class="cs-input">
+                        <input matInput placeholder="Value Enter with ( , )" name="value" #value  [(ngModel)]="feature.value">
+                      </mat-form-field>
+                      <div class="plus-btn">
+                        <a mat-raised-button color="accent" (click)="storeAttrData(type.value,value.value)" [disabled]="!feature.type || !feature.value">
+                          <i class="material-icons">add</i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              <div class="row">
+                <div class="col s12" *ngIf="feature_list && feature_list.length>0">
+                  <div class="cs-table left-right-22">
+                    <div class="table-head">
+                      <table>
+                        <tr>
+                          <th class="w230">Type</th>
+                          <th class=" bdr0">Values</th>
+                          <th class="w130">&nbsp;</th>
+                        </tr>
+                      </table>
+                    </div>
+                    
+                    <div class="table-container" >
+                      <div class="table-content">
+                        <table>
+                          <tr *ngFor="let row of feature_list;let index=index">
+                            <td class="w230">{{row.attr_type}}</td>
+                            <td *ngIf="row.attr_type == 'color'">
+                              <div class="tags">
+                                <ul>
+                                  <li *ngFor="let data of row.attr_options;let index=index">
+                                    <span class="red-bg" *ngIf="data == 'red'">red
+                                    </span>
+                                    <span class="green-bg" *ngIf="data == 'green'">GREEN
+                                    </span>
+                                    <span class="blue-bg" *ngIf="data == 'blue'">BLUE
+                                    </span>
+                                    <span class="yellow-bg" *ngIf="data == 'yellow'">YELLOW
+                                    </span>
+                                    <span *ngIf="(data!='yellow' && data!='red' && data!='green' && data!='blue' )">{{data}}
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                            <td *ngIf="row.attr_type != 'color'">
+                              <div class="tags">
+                                <ul>
+                                  <li *ngFor="let data of row.attr_options;let index=index">
+                                    <span>{{data}}
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                            <td class="w130">
+                              <a mat-button class="del-btn" (click)="delete_feature(index)">Delete</a>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              
+              
+              <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+              <div class="cs-heading">
+                <h2>DESCRIPTION</h2>
+              </div>
+              <mat-divider class="left-right-15 mt10"></mat-divider>
+              
+              
+              <div class="row">
+                <div class="col s12 padding0">
+                  <div class="editor">
+                    <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" name="description" class="trix-editor" [(ngModel)]="product.description"></app-ngx-editor>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col s12">
+                  <div class="cs-file">
+                    <p>Upload Image</p>
+                    <ul>
+                      <li *ngFor="let image of urls;let index=index">
+                        <label>
+                          <!-- <a class="">X</a> -->
+                          <!-- src="assets/img/product.png" -->
+                          <div class="overlay-content">
+                            <img [src]="image || 'http://placehold.it/180'" alt="your image" >
+                            <div class="overlay">
+                              <i class="material-icons cut-ic" (click)='removeImg(index)'>delete_forever</i>
+                            </div>
+                          </div>
+                        </label>
+                      </li>
+                      <li>
+                        <div class="cs-file hove-bg">
+                          <label>
+                            <input type="file" style="display:none;" (change)="selectvalue($event)" multiple>
+                            <i class="material-icons add-file-icon" >add</i>
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="col s12">
+            <div class="cs-btn fixedd mt32 text-right" [ngClass]="{loading: savingData}">
+              <div class="in-btn">
+                <button mat-raised-button [disabled]="already" color="accent">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="h50"></div>
+
+
+
+
+
+

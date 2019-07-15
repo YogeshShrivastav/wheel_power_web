@@ -1,0 +1,83 @@
+<div class="main-container">
+  <div *ngIf="loader" class="loader">
+      <div class="outer">
+          <div class="innear">
+              <mat-spinner class="loader"></mat-spinner>
+          </div>
+      </div>
+  </div>
+  <div class="middle-container">
+      <div class="page-heading">
+          <img src="assets/img/leads_icon.svg" class="h-icon">
+          <div class="heading-text">
+              <h2>Brand</h2>
+          </div>
+      </div>
+  </div>
+  
+  <form  #f="ngForm" name="data"  (ngSubmit)="submit_brand()">
+      <div class="container-outer">
+          <div class="container" >
+              <div class="row">
+                  <div class="col s12">
+                      <div class="sprate-box">
+                          <div class="cs-heading">
+                              <span class="required">Indicates required fields ( <sup>*</sup> )</span>
+                          </div>
+                          
+                          <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+                          
+                          <mat-divider class="left-right-15 mt10"></mat-divider>
+                          <div class="from-fields">
+                              <div class="row">
+                                  <div class="col s2 ">
+                                      <div class="control-field">
+                                          <mat-form-field class="cs-input">
+                                            <input matInput placeholder="Brand Name" type="text" name="brand" [(ngModel)]="brand">
+                                          </mat-form-field>
+                                      </div>
+                                  </div>
+
+                                  <div class="col s2 ">
+                                      <div class="control-field">
+                                          <div class="cs-input">
+                                              <label class="file-input">
+                                                  <input type="file"  style="display: none;" (change)="selectFile($event)" required>
+                                                  <p>UPLOAD</p>
+                                              </label>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col s2 empty"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+      
+      
+      <div class="container-outer">
+          <div class="container" >
+              <div class="row">
+                  <div class="col s12">
+                      <!-- [ngClass]="{loading: savingData}" -->
+                      <div class="cs-btn fixedd mt32 text-right">
+                          <div class="in-btn">
+                              <button mat-raised-button color="accent">Save</button>
+                          </div>
+                      </div>                       
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+  </form>
+  
+  
+  
+</div>
+
+<div class="h50"></div>

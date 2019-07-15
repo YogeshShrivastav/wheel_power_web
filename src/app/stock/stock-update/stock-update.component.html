@@ -1,0 +1,158 @@
+<div class="main-container">
+  <div *ngIf="loader" class="loader">
+      <div class="outer">
+          <div class="innear">
+              <mat-spinner class="loader"></mat-spinner>
+          </div>
+      </div>
+  </div>
+  <div class="middle-container">
+      <div class="page-heading">
+          <img src="assets/img/leads_icon.svg" class="h-icon">
+          <div class="heading-text">
+              <h2>Update Stock</h2>
+          </div>
+      </div>
+  </div>
+  
+  <form  #f="ngForm" name="data"  (ngSubmit)="f.valid && update_stock()">
+      <div class="container-outer">
+          <div class="container" >
+              <div class="row">
+                  <div class="col s12">
+                      <div class="sprate-box">                          
+                          <div class="row mt15">
+                              <div class="col s12">
+                                  <mat-divider class="left-right-15 mb10"></mat-divider>
+                                  <div class="cs-heading ">
+                                      <h2>PRODUCT INFO</h2>
+                                  </div>
+                                  
+                                  <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+                                  
+                                  <div class="from-fields">
+                                      <div class="row">
+                                          <div class="control-field col s2" >
+                                              <mat-form-field class="cs-input">
+                                                  <mat-select placeholder="Brand" name="brand" [(ngModel)]="product.brand">
+                                                      <ng-container  *ngFor="let row of brand_list">
+                                                          <mat-option (click)="get_product_category(product.brand)" value="{{row.brand}}">{{row.brand}}</mat-option>
+                                                      </ng-container>
+                                                  </mat-select>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="control-field col s2" >
+                                              <mat-form-field class="cs-input">
+                                                  <mat-select placeholder="Category" name="category"  [(ngModel)]="product.category">
+                                                      <mat-option  *ngFor="let row of category_list" (click)="get_all_product(product.category)" value="{{row.category}}">{{row.category}}</mat-option>
+                                                  </mat-select>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="control-field col s2" >
+                                              <mat-form-field class="cs-input">
+                                                  <input type="text" placeholder="Product Code"  name="cat_no" (keyup)="pcode_array_filter(product.cat_no,product_list,'cat_no')" matInput [matAutocomplete]="cat_no" [matAutocomplete]="cat_no" [(ngModel)]="product.cat_no">
+                                                  <mat-autocomplete #cat_no="matAutocomplete">
+                                                      <mat-option *ngFor="let data of fltr_pcode;let i=index" (click)="set_values(data)" value="{{data.cat_no}}">
+                                                          <small>{{data.cat_no}}</small>
+                                                      </mat-option>
+                                                  </mat-autocomplete>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="control-field col s2" >
+                                              <mat-form-field class="cs-input">
+                                                  <mat-select placeholder="Product" name="name" [disabled]="true" [(ngModel)]="product.name">
+                                                      <mat-option *ngFor="let row of product_list" value="{{row.product_name}}">{{row.product_name}}</mat-option>
+                                                  </mat-select>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="control-field  col s2" style="text-align: center !important;margin:20px 10px 0 10px !important">
+                                              <div class="cs-input">
+                                                  <input type="number" placeholder="Current Stock" name="current_stock" [(ngModel)]="product.current_stock"> 
+                                                  <input type="hidden" name="product_id" [(ngModel)]="product.product_id"> 
+                                                  <input type="hidden" name="sub_category" [(ngModel)]="product.sub_category"> 
+                                                  <input type="hidden" name="price" [(ngModel)]="product.price"> 
+                                              </div>
+                                          </div>
+                                          
+                                          <div class="col s1" style="float:right;" >
+                                              <div class="cs-btn fixedd mt20">
+                                                  <div class="in-btn">
+                                                      <button mat-raised-button color="accent" [disabled]="!product.name || !product.brand || !product.cat_no || !product.current_stock" (click)="add_stock()">Add</button>
+                                                  </div>
+                                              </div>
+                                          </div>    
+                                      </div>                                     
+                                  </div>                         
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+      
+      
+      <div class="container-outer">
+          <div class="container" >
+              <div class="row">
+                  <div class="col s12" *ngIf="new_stock.length > 0">
+                      <div class="cs-table left-right-20">
+                          <div class="table-head">
+                              <table>
+                                  <tr>
+                                      <th class="w180">Brand</th>
+                                      <th class="w180">Category</th>
+                                      <th class="w180">Subcategory</th>
+                                      <th>Product Name</th>
+                                      <th class="w180">Product Code</th>
+                                      <th class="w180">Current Stock</th>
+                                  </tr>
+                              </table>
+                          </div>
+                          
+                          <div class="table-container">
+                              <div class="table-content">
+                                  <table>
+                                      <tr *ngFor="let data of new_stock">
+                                          <td class="w180">
+                                              <span >{{data.brand}}</span>
+                                          </td>
+                                          <td class="w180">
+                                              <span >{{data.category}}</span>
+                                          </td>
+                                          <td class="w180">
+                                              <span >{{data.sub_category}}</span>
+                                          </td>
+                                          <td><a class="link-btn"  mat-button>
+                                              <span >{{data.name}}</span>
+                                          </a></td>
+                                          <td class="w180">
+                                              <span >{{data.cat_no}}</span>
+                                          </td>
+                                          <td class="w180">{{data.current_stock}}</td>
+                                      </tr>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="col s12">
+                      <div class="cs-btn fixedd mt32 text-right" [ngClass]="{loading: savingData}">
+                          <div class="in-btn">
+                              <button mat-raised-button color="accent" [disabled]="!new_stock.length">Save</button>
+                          </div>
+                      </div>                       
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+  </form>
+  
+  
+  
+</div>
+
+<div class="h50"></div>

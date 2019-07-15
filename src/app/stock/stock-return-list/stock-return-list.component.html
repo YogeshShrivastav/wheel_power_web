@@ -1,0 +1,126 @@
+<div class="main-container">
+    <div *ngIf="loader" class="loader">
+      <div class="outer">
+          <div class="innear">
+              <mat-spinner class="loader"></mat-spinner>
+          </div>
+      </div>
+    </div>
+    <div class="middle-container">
+      <div class="page-heading">
+        <img src="assets/img/leads_icon.svg" class="h-icon">
+        <div class="heading-text">
+          <h2>Stock Return</h2>
+          <p>Total {{product_list.length}} </p>
+        </div>
+      </div>
+
+      <div class="top-search wp20">
+          <input type="text" placeholder="SEARCH. . ." name="search_name" (input)="get_product()" [(ngModel)]="search.search_name">
+          <i class="material-icons">search</i>
+      </div>
+
+      
+      <!-- <div class="tabs left-tab ml16">
+        <ul>
+          <li><a routerLink="/stock-list" routerLinkActive="active">ADD STOCK</a></li>
+          <li><a routerLink="/stock-return-list" routerLinkActive="active">SALES RETURN</a></li>
+          <li><a routerLink="/stock-sifting-list" routerLinkActive="active">STOCK SHIFTING</a></li>
+        </ul>
+      </div> -->
+      
+      <div class="top-pagination">
+        <ul>
+            <li>
+                <div class="add-new">
+                    <div class="mat-drop">
+                      <button mat-raised-button [matMenuTriggerFor]="addnew">Action</button>
+                      <mat-menu x-position="before" #addnew="matMenu">
+                        <a mat-menu-item routerLink="/add-stock" routerLinkActive="active">Add Stock</a>
+                        <a mat-menu-item routerLink="/stock-return" routerLinkActive="active">Stock Return</a>
+                        <a mat-menu-item routerLink="/stock-sifting" routerLinkActive="active">Stock Shifting</a>
+                      </mat-menu>
+                    </div>
+                  </div>
+            </li>
+          <li class="refresh-area">
+            <a class="refresh-btn" mat-raised-button  matTooltip="Refresh" (click)="refresh()"><i class="material-icons"> refresh</i></a>
+          </li>
+          <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+          
+          <li>
+            <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_product(pagelimit,start-pagelimit)">
+              <i class="material-icons" >keyboard_arrow_left</i></button>
+            </li>
+            
+            <li>
+              <input type="text" placeholder="GO TO" name="pagenumber" (keyup.enter)="checkpage();get_product(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+            </li>
+            
+            <li>
+              <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_product(pagelimit,(start+pagelimit))">
+                <i class="material-icons">keyboard_arrow_right</i>
+              </button>
+            </li>
+          
+          </ul>
+        </div>
+        
+        
+      </div>
+      
+      <div class="container-outer">
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+                <div class="cs-table left-right-20">
+                  <div class="table-head">
+                    <table>
+                      <tr>
+                        <th class="w150">Date</th>
+                        <th>Manufacturer</th>
+                        <th class="w200">Item</th>
+                        <th class="w500 padding0 ">
+                          <table>
+                            <tr>
+                              <th class="w200">Product</th>
+                              <!-- <th class="w150 text-center">Type</th> -->
+                              <th class="w130 text-center">Return Qty</th>
+                            </tr>
+                          </table>
+                        </th>
+                      </tr>
+                    </table>
+                  </div>
+                  
+                  <div class="table-container">
+                    <div class="table-content">
+                      <table>
+                        <tr *ngFor="let row of product_list">
+                          <td class="w150">{{row.invoice_date |date:'d MMM y'}}</td>
+                          <td ><a class="link-btn" mat-button routerLink="/add-manufacture/{{row.ecrpt_id}}" routerLinkActive="active">{{row.name}}</a></td>
+                          <!-- <td ><a mat-button routerLink="/add-manufacture/{{row.ecrpt_id}}" routerLinkActive="active" mat-button class="view">{{row.name}}</a></td> -->
+                          <td class="w200">{{row.product.length}}</td>
+                          <td class="w500 padding0">
+                            <table>
+                              <tr *ngFor="let data of row.product">
+                                <td class="w200">{{data.cat_no}}</td>
+                                <td class="w130 text-center">{{data.total_return*-1}}</td>
+                              </tr>
+                            </table>
+                            <!-- <div class="action-btns">
+                                <a mat-button routerLink="/incoming-stock" routerLinkActive="active" mat-button class="view">TRANSACTION</a>
+                            </div> -->
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>

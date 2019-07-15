@@ -1,0 +1,67 @@
+<div class="main-container" >
+    <div *ngIf="loader"> 
+      <div class="cs-loader">
+        <mat-spinner class="loader"></mat-spinner> 
+      </div>
+    </div>
+    <div class="middle-container">
+      <div class="page-heading">
+        <div class="heading-text bc-space">
+          <div class="back-btn">
+            <a mat-button routerLink="/stock-sifting-list/" routerLinkActive="active"><i class="material-icons">arrow_right_alt</i></a>
+          </div>
+          <h2>Received Stock Details</h2>
+          <p class="light"></p>
+        </div>
+      </div>
+    </div>
+    <div class="container-outer">
+      <div class="container" >
+        <div class="row">
+          <div class="col s12">
+            <div class="cs-table left-right-20">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th class="w150">Brand</th>
+                    <th class="w150">Category</th>
+                    <th class="w200">Product Name</th>
+                    <th>Product Code</th>
+                    <th class="w80 text-center">Transfer QTY</th>
+                    <th class="w100 text-center">Accept QTY</th>
+                  </tr>
+                </table>
+              </div>
+              
+              <div class="table-container">
+                <div class="table-content">
+                  <table>
+                    <tr *ngFor="let row of item_detail;let i=index;">
+                      <td class="w150">{{row.brand | titlecase}}</td>
+                      <td class="w150">{{row.category | titlecase}}</td>
+                      <td class="w200">{{row.product_name | titlecase}}</td>
+                      <td>{{row.cat_no | titlecase}}</td>
+                      <td class="w80 text-center"><div class="td-input"><input type="text" name="qty{{i}}" [(ngModel)]="row.qty"></div></td>
+                      <td class="w100 text-center"><div class="td-input"><input type="text" (keyup)="check_qty(i)" name="accept_qty{{i}}" [(ngModel)]="row.accept_qty"></div></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12">
+              <div class="cs-btn fixedd mt32 text-right">
+                  <div class="in-btn">
+                      <button mat-raised-button color="accent" (click)="submit_record()">Save</button>
+                  </div>
+              </div>                       
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <div class="h50"></div>
+  
+  

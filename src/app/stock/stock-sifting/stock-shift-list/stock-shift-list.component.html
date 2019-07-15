@@ -1,0 +1,91 @@
+<div class="main-container" [@routerTransition]>
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container">
+    <div class="tabs">
+      <ul>
+        <li><a [ngClass]="{'active' : pending }" (click)="classactive('pending');get_stock_shift()">Pending</a></li>
+        <li><a [ngClass]="{'active' : received }" (click)="classactive('received');get_stock_shift()">Received</a></li>
+      </ul>
+    </div>
+    <div class="top-pagination">
+      <ul>
+        <li class="refresh-area">
+          <a class="refresh-btn" mat-raised-button  matTooltip="Refresh" (click)="refresh()"><i class="material-icons"> refresh</i></a>
+        </li>
+        <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_stock_shift(pagelimit,start-pagelimit)">
+            <i class="material-icons" >keyboard_arrow_left</i>
+          </button>
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <input type="text" placeholder="GO TO" name="pagenumber" (keyup.enter)="checkpage();get_stock_shift(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_stock_shift(pagelimit,(start+pagelimit))">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </button>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+  
+  <div class="container-outer">
+    <div class="container" >
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20" *ngIf="shifting_list.length > 0">
+            <div class="table-head">
+              <table>
+                <tr>
+                  <th class="w50">S.No</th>
+                  <th class="w200">Date</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th class="w70 text-center">Item</th>
+                  <th class="w120 text-center">Status</th>                    
+                  <th class="w120 text-center">Action</th>                    
+                </tr>
+              </table>
+            </div>
+            
+            <div class="table-container">
+              <div class="table-content">
+                <table>
+                  <tr *ngFor="let row of shifting_list;let i=index">
+                    <td class="w50">{{((pagenumber-1)*pagelimit)+(i+1)}}</td>
+                    <td class="w200">{{row.date_created | date:'d MMM ,y'}}</td>
+                    <td>{{row.warehouse_fr_name | titlecase}}</td>
+                    <td>{{row.warehouse_to_name | titlecase}}</td>
+                    <td class="w70 text-center">{{row.item_detail.length}}</td>
+                    <td class="w120 text-center">
+                      {{row.status | titlecase}}
+                    </td>
+                    <td class="w120 text-center">
+                      <a mat-button class="view" (click)="stock_status(row.ecrpt_id)"><i class="material-icons">remove_red_eye</i> View</a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="data-not-found" *ngIf="shifting_list.length == 0">
+            <img src="assets/img/no-record-found.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

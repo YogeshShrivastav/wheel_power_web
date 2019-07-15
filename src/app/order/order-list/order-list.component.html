@@ -1,0 +1,133 @@
+<div class="main-container">
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container padding0">
+    <div class="master-heading">
+      <div class="tabs">
+        <ul>
+          <li><a class="pr40" [ngClass]="{'active' : pending }" (click)="classactive('pending');get_orders()">Pending <span class="counter">{{pending_cn}}</span></a></li>
+          <li><a class="pr40" [ngClass]="{'active' : assign_to_warehouse }" (click)="classactive('assign_to_warehouse');get_orders()">Assign to Warehouse <span class="counter">{{assign_cn}}</span></a></li>
+          <li><a class="pr40" [ngClass]="{'active' : packing }" (click)="classactive('packing');get_orders()">Packing List  <span class="counter">{{packing_cn}}</span></a></li>
+          <li><a class="pr40" [ngClass]="{'active' : invoice }" (click)="classactive('invoice');get_orders()">Invoice  <span class="counter">{{invoice_cn}}</span></a></li>
+          <li><a class="pr40" [ngClass]="{'active' : dispatch }" (click)="classactive('dispatch');get_orders()">Dispatched  <span class="counter">{{dispatch_cn}}</span></a></li>
+        </ul>
+      </div>
+      <div class="top-pagination">
+        <ul>
+          <li class="refresh-area">
+            <a class="refresh-btn" (click)="refresh()" mat-raised-button  matTooltip="Refresh"><i class="material-icons"> refresh</i></a>
+          </li>
+          <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+          
+          <li *ngIf="totalpage > 1">
+            <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_orders(pagelimit,start-pagelimit)">
+              <i class="material-icons" >keyboard_arrow_left</i>
+            </button>
+          </li>
+          
+          <li *ngIf="totalpage > 1">
+            <input type="text" placeholder="GO TO" name="pagenumber" (keyup.enter)="checkpage();get_orders(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+          </li>
+          
+          <li *ngIf="totalpage > 1">
+            <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_orders(pagelimit,(start+pagelimit))">
+              <i class="material-icons">keyboard_arrow_right</i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-outer pt0">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20">
+            <div class="sticky-head">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th class="w50">S.No</th>
+                    <th class="w150 text-center">Date</th>
+                    <th class="w150">Created By</th>
+                    <th class="w80 text-center">Order ID</th>
+                    <th class="w200">Customer / Mobile No</th>
+                    <th>Address Detail</th>
+                    <th class="w60 text-center">Total Item</th>
+                    <th class="w100 text-center" *ngIf="page_type == 'assign_to_warehouse'">Warehouse</th>
+                    <th class="w70 text-center" *ngIf="page_type == 'packing'">Packed Item</th>
+                    <th class="w80 text-center" *ngIf="page_type != 'packing'">Action</th>
+                    <th class="w270 text-center" *ngIf="page_type == 'packing'">View</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="table-head bdrt">
+                <table>
+                  <tr>
+                    <th class="w50">&nbsp;</th>
+                    <th class="w150">&nbsp;</th>
+                    <th class="w150" ></th>
+                    <th class="w80 text-center">&nbsp;</th>
+                    <th class="w200">
+                      <div class="th-search-acmt">
+                        <mat-form-field>
+                          <input type="text" placeholder="Search..." matInput name="customer" (input)="get_orders()" [(ngModel)]="search.customer">
+                        </mat-form-field>
+                      </div>
+                    </th>
+                    <td></td>
+                    <td class="w60 text-center"></td>
+                    <td class="w100 text-center" *ngIf="page_type == 'assign_to_warehouse'">&nbsp;</td>
+                    <th class="w70 text-center" *ngIf="page_type == 'packing'">&nbsp;</th>
+                    <th class="w80 text-center" *ngIf="page_type != 'packing'">&nbsp;</th>
+                    <th class="w270 text-center" *ngIf="page_type == 'packing'">&nbsp;</th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+            <div class="table-container" *ngIf="order_list.length > 0">
+              <div class="table-content">
+                <table>
+                  <tr *ngFor="let row of order_list;let i=index">
+                    <td class="w50">{{(i+1)}}</td>
+                    <td class="w150 text-center">{{row.order_date | date:'d MMM , y h:m a'}}</td>
+                    <td class="w150">{{row.created_by_name | titlecase}}</td>
+                    
+                    <td class="w80 text-center" ><a class="link-btn" routerLink="/order-detail/{{row.ecrpt_id}}/{{page_type}}" routerLinkActive="active" mat-button>#ORD{{row.order_id}}</a></td>
+                    
+                    <td class="w200">{{row.name | titlecase}} / {{row.mobile_1}}</td>
+                    <td>{{row.address | titlecase}}{{!row.city? '' : ' , '+row.city | titlecase}}{{!row.district? '' : ' , '+row.city | titlecase}}{{!row.state? '' : ' , '+row.state | titlecase}}{{!row.pincode? '' : ' - '+row.pincode}}</td>
+                    <td class="w60 text-center">{{row.total_item}}
+                      <div class="action-btns" *ngIf="page_type == 'pending'">
+                        <button mat-button class="delete"  (click)="deleteproduct(row.order_id,i)"><i class="material-icons">delete_sweep</i> Delete</button>
+                      </div>
+                    </td>  
+                    <td class="w100 text-center" *ngIf="page_type == 'assign_to_warehouse'">{{row.warehouse_name | titlecase}}</td>
+                    <td class="w70 text-center" *ngIf="page_type == 'packing'">{{row.item}}</td>
+                    <td class="w80 text-center" *ngIf="page_type != 'packing'">
+                      <a class="link-btn" style="text-align: center;" routerLink="/order-detail/{{row.ecrpt_id}}/{{page_type}}" routerLinkActive="active" mat-button><i class="material-icons pr5">remove_red_eye</i></a>                                     
+                    </td>
+                    <td class="w270 text-center" *ngIf="page_type == 'packing'">
+                      <a class="link-btn pr15" routerLink="/order-detail/{{row.ecrpt_id}}/{{page_type}}" routerLinkActive="active" mat-button><i class="material-icons pr5">remove_red_eye</i>Packing Detail</a>
+                      <a class="link-btn" (click)="view_full(row.ecrpt_order_id)" mat-button style="text-align: center;"><i class="material-icons pr5 ">remove_red_eye</i>Full Detail</a>                                     
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>                     
+            <div class="data-not-found" *ngIf="order_list.length == 0">
+              <img src="assets/img/no-record-found.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>   
+</div>

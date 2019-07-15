@@ -1,0 +1,44 @@
+<mat-dialog-content class="csn-modal w500" style="overflow: inherit;">
+    <div *ngIf="loader" class="loader">
+        <div class="outer">
+            <div class="innear">
+                <mat-spinner class="loader"></mat-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="page-heading">
+        <div class="heading-text">
+            <h2 class="font16 mb20">Stock</h2>
+            <!-- <p>Warehouse Wise 343</p> -->
+        </div>
+    </div>
+    <div class="cs-table left-right-20">
+        <div class="table-head">
+            <table>
+                <tr>
+                    <th class="w200">Wharehouse Name</th>
+                    <th class="w100">Quantity</th>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="table-container">
+            <div class="table-content">
+                <table>
+                    
+                    <tr *ngFor="let row of wh_prod_list;let i=index">
+                        <td class="w200">{{row.warehouse_name}}</td>
+                        <td class="w100">{{row.current_stock}}</td>     
+                    </tr>
+                    <tr *ngIf="total_stock" style="border-top:1px solid #333 !important;">
+                        <td><strong> Total : </strong></td>
+                        <td>{{total_stock}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions align="end">
+        <button mat-button  (click)="close_dialog()">CLOSE</button>
+    </mat-dialog-actions>
+</mat-dialog-content>

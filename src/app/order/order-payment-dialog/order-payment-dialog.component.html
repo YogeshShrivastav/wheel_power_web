@@ -1,0 +1,108 @@
+<mat-dialog-content class="csn-modal" style="display: inline !important">
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="page-heading">
+    <div class="heading-text">
+      <h2>Payments</h2>
+    </div>
+  </div>
+  <div class="container-outer">
+    <div class="container">
+      <div class="row mt15"> 
+        <div class="col s4" style="position: sticky; right: 0px; top: 130px;">
+          <div class="sprate-box mt15" *ngFor="let row of payment_list;let i=index">
+            <div class="static-table">
+              <div class="cs-heading">
+                <h2>{{row.mode | titlecase}}</h2>
+              </div>
+              <mat-divider class="left-right-15 mt10"></mat-divider>
+              <div class="col s12" *ngIf="row.mode == 'cheque'">
+                <table>
+                  <tr>
+                    <td class="w150">Bank</td>
+                    <td class="w20 text-center">:</td>
+                    <td>{{row.bank | titlecase}}</td>
+                  </tr>
+                  <tr>
+                    <td>Cheque No.</td>
+                    <td class="text-center">:</td>
+                    <td>{{row.cheque_no}}</td>
+                  </tr>
+                  <tr>
+                    <td class="w150">Cheque Date</td>
+                    <td class="w20 text-center">:</td>
+                    <td>{{row.cheque_date | date:'d MMM , y'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="w150">Cheque Amount</td>
+                    <td class="w20 text-center">:</td>
+                    <td>{{row.amount}}</td>
+                    <td *ngIf="row.varify == 'verified'"><span class="status done">{{row.varify | titlecase}}</span></td>
+                    <td *ngIf="row.varify != 'verified'">
+                      <div class="cs-btn left-auto">
+                        <div class="in-btn">
+                          <a mat-raised-button (click)="varify_payment(row.id)" color="accent" >Varify</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="col s12" *ngIf="row.mode == 'card'">
+                <table>
+                  <tr>
+                    <td class="w150">Transaction ID</td>
+                    <td class="w20 text-center">:</td>
+                    <td>{{row.trans_id}} </td>
+                  </tr>
+                  <tr>
+                    <td class="w150">Amount</td>
+                    <td class="w20 text-center">:</td>
+                    <td>{{row.amount}}</td>
+                    <td *ngIf="row.varify == 'verified'"><span class="status done">{{row.varify | titlecase}}</span></td>
+                    <td *ngIf="row.varify != 'verified'">
+                      <div class="cs-btn left-auto">
+                        <div class="in-btn">
+                          <a mat-raised-button (click)="varify_payment(row.id)" color="accent" >Varify</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="col s12" *ngIf="row.mode == 'cash'">
+                <table>
+                  <tr>
+                    <td class="w150">Amount</td>
+                    <td class="w20 text-center">:</td>
+                    <td>{{row.amount}}</td>
+                    <td *ngIf="row.varify == 'verified'"><span class="status done">{{row.varify | titlecase}}</span></td>
+                    <td *ngIf="row.varify != 'verified'">
+                      <div class="cs-btn left-auto">
+                        <div class="in-btn">
+                          <a mat-raised-button (click)="varify_payment(row.id)" color="accent" >Varify</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <div class="cs-btn fixedd pr10">
+        <button mat-raised-button (click)="close_dialog()" color="warn">Close</button>
+    </div>
+  </mat-dialog-actions>
+</mat-dialog-content>

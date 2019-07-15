@@ -1,0 +1,92 @@
+<div class="main-container">
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>Warehouse</h2>
+        <p>Total : {{row_cn}}</p>
+      </div>
+    </div>
+    
+    <div class="top-search wp20">
+      <input type="text" placeholder="SEARCH. . ." name="search_name" [(ngModel)]="search.search_name" (input)="get_warehouse()">
+      <i class="material-icons">search</i>
+    </div>
+    
+    <div class="top-pagination">
+      <ul>
+        <li class="refresh-area">
+          <a class="refresh-btn" mat-raised-button  matTooltip="Refresh" (click)="refresh()"><i class="material-icons"> refresh</i></a>
+        </li>
+        <li><p>Pages {{pagenumber}} of {{totalpage}}</p></li>
+        <li *ngIf="totalpage > 1"><button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_warehouse(pagelimit,(start-pagelimit))"><i class="material-icons">keyboard_arrow_left</i></button></li>
+        <li *ngIf="totalpage > 1"><input type="text" placeholder="GO TO" (keyup.enter)="checkpage();get_warehouse(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber"></li>
+        <li *ngIf="totalpage > 1"><button mat-button class="right-btn" [disabled]="pagenumber == totalpage" (click)="get_warehouse(pagelimit,(start+pagelimit))"><i class="material-icons">keyboard_arrow_right</i></button></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="container-outer pt0">
+    <!-- <app-master-tab-list></app-master-tab-list> -->
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20" *ngIf="warehouse_list.length > 0">
+            <div class="sticky-head">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th class="w150">Warehouse Name</th>
+                    <th class="w150">Contact Person</th>
+                    <th class="w120">Mobile</th>
+                    <th class="w100">Username</th>
+                    <th class="w150">Password</th>
+                    <th>Location</th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+            <div class="table-container">
+              <div class="table-content">
+                <table>
+                  <tr *ngFor=" let row of warehouse_list;let index=index;">
+                    <td class="w150"><a class="link-btn" mat-button routerLink="/add-warehouse/{{row.ecrpt_id}}" routerLinkActive="active">{{row.warehouse_name}}</a></td>
+                    <td class="w150">{{row.contact_person}}</td>
+                    <td class="w120">{{row.mobile1}}</td>
+                    <td class="w100"><strong>{{row.username}}</strong></td>
+                    <td class="w150">
+                      <div class="td-input" [ngClass]="{'active':row.active == true}">
+                        <input type="{{row.active? 'password' : 'text'}}" placeholder="" readonly [(ngModel)]="row.password">
+                        <i class="material-icons password show-pass" (click)="toggleterritory(row.active,'open',index)" >visibility</i>
+                        <i class="material-icons password show-hide" (click)="toggleterritory(row.active,'close',index)">visibility_off</i>
+                      </div>
+                    </td>
+                    
+                    <td>{{row.address | titlecase}} {{!row.city? '' : ' , '+row.city | titlecase}} {{!row.district? '' : ' , '+row.district | titlecase}} {{!row.state? '' : ' , '+row.state | titlecase}}{{!row.pincode? '' : ' - '+row.pincode | titlecase}}
+                      <div class="action-btns">
+                        <a mat-button class="view" mat-button routerLink="/add-warehouse/{{row.ecrpt_id}}" routerLinkActive="active"><i class="material-icons">remove_red_eye</i> View</a>
+                        <button mat-button class="delete" (click)="removedata(index,row.id)"><i class="material-icons">delete_sweep</i>Delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="data-not-found" *ngIf="warehouse_list.length == 0">
+            <img src="assets/img/no-record-found.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

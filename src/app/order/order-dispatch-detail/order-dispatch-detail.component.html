@@ -1,0 +1,489 @@
+<div class="main-container" >
+    <div *ngIf="loader"> 
+        <div class="cs-loader">
+            <mat-spinner class="loader"></mat-spinner> 
+        </div>
+    </div>
+    <div class="middle-container">
+        <div class="page-heading">
+            <div class="heading-text bc-space">
+                <div class="back-btn">
+                    <a mat-button routerLink="/order-dispatch/{{page_type}}" routerLinkActive="active"><i class="material-icons">arrow_right_alt</i></a>
+                </div>
+                <h2>{{customer_detail.name | titlecase}}</h2>
+                <p class="light">#ORD{{order_detail.id}} / {{order_detail.date_created | date:'d MMM, y h:m a'}}</p>
+            </div>
+        </div>
+        
+        <div class="cs-btn left-auto">
+            <div class="in-btn">
+                <!-- <a mat-raised-button *ngIf="page_type == 'dispatch'"  (click)="print()" color="accent" >Print</a> -->
+                <a mat-raised-button *ngIf="page_type == 'dispatch_pend'" (click)="order_dispatch()" color="accent" >Dispatch</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-outer">
+        <div class="container" >
+            <div class="row mt15">
+                <div class="col s6">
+                    <div class="sprate-box padding0">
+                        <div class="top-heading">
+                            <h2>Order Detail</h2>
+                        </div>
+                        <div class="details-info">
+                            <div class="basic-details padding15">
+                                <div class="profile-info">
+                                    <ul>
+                                        <li class="col s3">
+                                            <div class="cs-box">
+                                                <img src="assets/img/username.svg" class="fix-img h35">
+                                                <span>Created By</span>
+                                                <p class="link-clr" *ngIf="order_detail.user_type == 'sales'">{{user_detail.name | titlecase}}</p>
+                                                <p class="link-clr" *ngIf="order_detail.user_type == 'customer'">{{customer_detail.name | titlecase}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="col s9 cs-figure" *ngIf="page_type == 'dispatch' && dispatch_detail">
+                                        <ul>
+                                            <li style="white-space: nowrap;">
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Dispatch Date</span>
+                                                        <p>{{dispatch_detail.date_created | date: 'd MMM , y h:m a'}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>From</span>
+                                                        <p>{{dispatch_detail.warehouse_name | titlecase}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Item</span>
+                                                        <p>{{dispatch_detail.total_item}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col s12 mt15 cs-figure">
+                                        <ul>
+                                            <li>
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Total Qty</span>
+                                                        <p>{{order_detail.total_item}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Order Amount</span>
+                                                        <p>&#8377;  {{order_detail.order_total}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="outer">
+                                                    <div class="inner">
+                                                        <span>Status</span>
+                                                        <p>{{order_detail.status | titlecase}}ed</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="sprate-box padding0">
+                        <div class="full-address">
+                            <div class="top-heading">
+                                <h2>SHIPPING ADDRESS</h2>
+                            </div>
+                            
+                            <div class="ds-from-fields">
+                                
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>Name</p>
+                                        <p>{{customer_detail.name | titlecase}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>Email</p>
+                                        <p>{{customer_detail.email == ''? 'N.A' : customer_detail.email}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>Mobile No.</p>
+                                        <p>{{customer_detail.mobile_1}}</p>
+                                    </div>
+                                </div>
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>address</p>
+                                        <p>{{customer_detail.address | titlecase}}, {{customer_detail.city | titlecase}} {{customer_detail.district | titlecase}}, {{customer_detail.state | titlecase}} {{customer_detail.pincode}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            
+            <div class="row" *ngIf="order_item.length > 0 && page_type == 'packing_pend'">
+                <div class="col s12">
+                    <div class="heading-bg left-right-20 mb0">
+                        <h2>PENDING ORDER ITEM</h2>
+                    </div>
+                    <div class="cs-table left-right-20">
+                        <div class="table-head">
+                            <table>
+                                <tr>
+                                    <th class="w40">#</th>
+                                    <th>Product Description</th>
+                                    <th class="w200">Product Code</th>
+                                    <th class="w80 text-center">QTY</th>
+                                    <th class="w80 text-center">Packed QTY</th>
+                                    <th class="w80 text-center">Available QTY</th>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-content">
+                                <table>
+                                    <tr *ngFor="let row of order_item;let i=index;">
+                                        <td class="w40"><input type="checkbox" name="item{{i}}" (change)="select_item(row,row.item)" [(ngModel)]="row.item"></td>
+                                        <td>{{row.brand}} - {{row.category}} - {{row.sub_category}} - {{row.product_name | titlecase}}</td>
+                                        <td class="w200">{{row.cat_no | uppercase}}</td>
+                                        <td class="w80 text-center">{{row.qty}}</td>
+                                        <td class="w80 text-center"><div class="td-input"><input type="number" [disabled]="row.available_stock =='0'" name="pack_qty{{i}}" (keyup)="check_qty(i)" (change)="check_qty(i)" [(ngModel)]="row.pack_qty"></div></td>
+                                        <td class="w80 text-center">{{row.available_stock}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col s12" *ngIf="packing_arr.length > 0 && page_type == 'packing_pend'">
+                <div class="cs-btn fixedd mt32 text-right">
+                    <div class="in-btn" style="margin-right: 112px;">
+                        <button style="width: 220px;" mat-raised-button color="accent" (click)="generate_packing()">Generate Packing</button>
+                    </div>
+                </div>                       
+            </div>
+            
+            <div *ngIf="page_type == 'packing_pend'">
+                <div class="row mt15" *ngIf="packing_list && packing_list.length > 0">
+                    <div class="col s12">
+                        <div class="heading-bg left-right-20 mb0">
+                            <h2>PACKING INFORMATION</h2>
+                        </div>
+                        <div class="cs-table left-right-20">
+                            <div class="table-head">
+                                <table>
+                                    <tr>
+                                        <th>Shipping Detail</th>
+                                        <th class="w80 text-center">Packed QTY</th>
+                                        <th class="w130 text-center">Invoice Copy</th>
+                                        <th>Invoice Detail</th>
+                                        <th class="w100 text-center">Action</th>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="table-container">
+                                <div class="table-content">
+                                    <table>
+                                        <tr *ngFor="let row of packing_list;let i=index">
+                                            <td>{{row.name | titlecase}} , {{row.mobile_1}} - {{row.mobile_2}} - {{row.address | titlecase}} - {{row.city | titlecase}} - {{row.district | titlecase}} - {{row.state | titlecase}} , {{row.pincode}}</td>
+                                            <td class="w80 text-center">{{row.item}}</td>
+                                            <td class="w130 text-center" *ngIf="row.image == ''">Not Available</td>
+                                            <td class="w130 text-center" *ngIf="row.image != ''"><a mat-button (click)="download_invoice(row.image)">Download</a></td>
+                                            <td *ngIf="row.invoice_no == ''">N.A</td>
+                                            <td *ngIf="row.invoice_no != ''">Invoice Date - {{row.invoice_date | date:'d MMM, y h:m:s a'}} , Invoice No - {{row.invoice_no}} ,Invoice Amount - {{row.net_amount}}</td>
+                                            <td class="w100 text-center"><a mat-button (click)="open_dialog(row.packing_id)" class="link-btn">View</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngIf="page_type == 'dispatch_pend' || page_type == 'dispatch'">
+                <div class="row">
+                    <div class="col s6 mt15">
+                        <div class="sprate-box padding0">
+                            <div class="full-address">
+                                <div class="top-heading">
+                                    <h2>Invoice Detail</h2>
+                                </div>
+                                <div class="cs-table">
+                                    <div class="table-head">
+                                        <table>
+                                            <tr>
+                                                <th>Invoice No</th>
+                                                <th>Incoice Date</th>
+                                                <th>Invoice Amount</th>
+                                                <th>Invoice Copy</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="table-container">
+                                        <div class="table-content">
+                                            <table>
+                                                <tr>
+                                                    <td>{{packing_list.invoice_no}}</td>
+                                                    <td>{{packing_list.invoice_date | date : 'd MMM, y'}} </td>
+                                                    <td>{{packing_list.net_amount}}</td>
+                                                    <td><a mat-button (click)="download_invoice(packing_list.image)">Download</a></td>
+                                                   
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col s6 mt15 pl30 pr10">
+                        <div class="cs-table left-right-20">
+                            <div class="sprate-box padding0">
+                                <div class="full-address">
+                                    <div class="top-heading">
+                                        <h2>Packing Detail</h2>
+                                    </div>
+                                    <div class="table-head">
+                                        <table>
+                                            <tr>
+                                                <th>Product Details</th>
+                                                <th class="w150 text-center">Product Code</th>
+                                                <th class="w100 text-center">Packed QTY</th>
+                                            </tr>
+                                        </table>
+                                    </div>                            
+                                    <div class="table-container">
+                                        <div class="table-content">
+                                            <table>                      
+                                                <tr *ngFor="let row of packing_item;let i=index;">
+                                                    <td>{{row.brand | titlecase}} - {{row.category | titlecase}} - {{row.product_name | titlecase}}</td>
+                                                    <td class="w150 text-center">{{row.cat_no}}</td>
+                                                    <td class="w100 text-center">{{row.pack_qty}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>             
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+<div class="h50"></div>
+
+<div class="cs-fab" *ngIf="page_type=='packing_pend'">
+    <button mat-fab (click)="print()"><i class="material-icons">print</i></button>
+</div>
+
+<div  id="print-section" class="print-section" hidden>
+    <table  width="1024px" style="border-collapse: collapse;">
+        <tr>
+            <td width="1024px">
+                <table class="table1" width="1024px">
+                    <tr>
+                        <td width="324px">
+                            <h2 style="line-height: 10px; font-size: 22px; padding: 30px 0px; color: #7596f7;">Order Detail</h2>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td width="600" style="text-align: left; background: #fff; vertical-align: top;">
+                            <h2 style="line-height: 10px; font-size: 14px;">Bill To</h2>
+                            <p style="line-height: 10px; font-size: 12px;"> <strong>Name : </strong>{{customer_detail.name | titlecase}} </p>
+                            <p style="line-height: 10px; font-size: 12px;"><strong>Email : </strong>{{customer_detail.email == ''? 'N.A' : customer_detail.email}}</p>
+                            <p style="line-height: 10px; font-size: 12px;"><strong>Mobile : </strong>{{customer_detail.mobile_1}}</p>
+                        </td>
+                        <td text-align="right"  style="text-align: right;  background: #fff;">
+                            <table width="424px" style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Order#</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">#ORD{{order_detail.id}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Order Date</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">{{order_detail.date_created | date: 'd MMM y H:m:s a'}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Created By</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">{{user_detail.name | titlecase}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Total Order Qty</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">{{order_detail.total_item}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Status</td>
+                                    <td style="border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; text-align: left; padding: 5px;">{{order_detail.status | titlecase}}</td>
+                                </tr> -->
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top; padding-top: 30px;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: left; background: #fff; vertical-align: top;">
+                            <h2 style="line-height: 10px; font-size: 14px;">Ship To</h2>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.address | titlecase}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.pincode}} {{customer_detail.city}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.district}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">{{customer_detail.state}}</p>
+                            <p style="line-height: 10px; font-size: 12px;">India</p>
+                        </td>
+                        <td  style="text-align: right;  background: #fff;">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td width="1024"  style="text-align: right;  background: #fff;">
+                            <table  style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="width:24px; text-align: center; border: 1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">#</td>
+                                    <td style="width:200px; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; text-align: left; padding: 5px;">Brand</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Category</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Sub Category</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Product Name</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Product Code</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Qty</td>
+                                    <!-- <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Rate</td> -->
+                                    <!-- <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #e8f7fe; font-size: 14px; padding: 5px;">Amount</td> -->
+                                </tr>
+                                <tr *ngFor="let row of order_item;let i=index;">
+                                    <td style="width:24px; text-align: center; border: 1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{(i+1)}}</td>
+                                    <td style="width:200px; border:1px solid #ccc; vertical-align: top; font-size: 14px; background: #fff; padding: 5px;">{{row.brand}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.category}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.sub_category}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.product_name | titlecase}}</td>
+                                    <td style="width:200px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px;  padding: 5px;">{{row.cat_no | uppercase}}</td>
+                                    <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.qty}}</td>
+                                    <!-- <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.price}}</td> -->
+                                    <!-- <td style="width:100px; text-align: center; border:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; padding: 5px;">{{row.total_amount}}</td> -->
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td width="700px"  style="text-align: right; vertical-align: top;  background: #fff;  padding-top: 30px;">
+                            <table  style="border-collapse: collapse;">
+                                <tr>
+                                    <td style="text-align: center; background: #fff; vertical-align: top; font-size: 16px; text-align: left; padding: 5px;">Thanks for the business.</td>
+                                </tr>
+                                
+                            </table>
+                        </td>
+                        <td  style="text-align: right;  background: #fff;  padding-top: 30px;">
+                            <table width="324px" style="border-collapse: collapse;">
+                                <tr>
+                                    <td  width="120"  style="border-bottom:1px solid #ccc; vertical-align: top; background: #fff; font-size: 14px; font-weight: 600; text-align: right; padding: 15px 5px;">Order Total</td>
+                                    <td style="border-bottom:1px solid #ccc;  vertical-align: top; background: #fff; font-size: 14px; text-align: right; padding: 15px 5px;">₹{{total_amount}}</td>
+                                </tr>
+                                <tr>
+                                    <td  width="120"  style="border-bottom:1px solid #ccc; vertical-align: top; background: #fff; text-align: right; color: #1f86ca; font-size: 14px; font-weight: 600; text-align: right; padding: 15px 5px;">Total Payment</td>
+                                    <td style="border-bottom:1px solid #ccc; vertical-align: top; background: #fff; text-align: right; color: #1f86ca; font-size: 14px; text-align: right; padding: 15px 5px;">₹{{order_detail.payment_total}}</td>
+                                </tr>
+                                <tr>
+                                    <td width="120" style="vertical-align: top; background: #fff; font-size: 12px; text-align: right; padding: 15px 5px;">Total In Words:</td>
+                                    <td style="vertical-align: top; background: #fff;font-size: 13px; font-weight: 600; text-align: right; padding: 15px 5px;">Rupees seventeen thousand seven hundred</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr> -->
+        
+        <!-- <tr>
+            <td width="1024px" style="background: #fff; vertical-align: top; padding-top: 50px;">
+                <table class="table3" width="1024px" style="background: #fff; table-layout:fixed; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: left; background: #fff; vertical-align: top;">
+                            <h2 style="line-height: 10px; font-size: 12px;">Company Bank Details  </h2>
+                            <p style="line-height: 10px; font-size: 12px;">Beneficiary name:</p>
+                            <p style="line-height: 10px; font-size: 12px;">Account no:</p>
+                            <p style="line-height: 10px; font-size: 12px;">Bank name:</p>
+                            <p style="line-height: 10px; font-size: 12px;">IFSC:</p>
+                            <p style="line-height: 10px; font-size: 12px;">Branch Address:</p>
+                        </td>
+                        <td  style="text-align: right;  background: #fff;">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #fff;  border-bottom: 1px solid #ccc; padding:30px 0px 15px 0px;"><h2 style="font-size: 16px; font-weight: 600px; margin:0px; ">Terms & Conditions</h2></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; background: #fff; vertical-align: top; padding-top: 30px;">
+                
+                <p style="line-height: 10px; font-size: 12px;">1) Goods once sold will not be taken back or exchanged except manufacturing defect</p>
+                <p style="line-height: 10px; font-size: 12px;">2) Once invoice made cannot be modified or cancelled for any reasons thereof.</p>
+                <p style="line-height: 10px; font-size: 12px;">3) This is computer generated invoice hence signature's not required,</p>
+                <p style="line-height: 10px; font-size: 12px;">4) The court at Delhi shall have exclusive jurisdiction for deciding any disputes arising out of this sale invoice</p>
+            </td>
+        </tr> -->
+        
+    </table>
+</div>
+
+
+<!-- <div class="cs-toast" *ngIf="page_type == 'dispatch'">
+    Order has been Dispatched
+</div> -->

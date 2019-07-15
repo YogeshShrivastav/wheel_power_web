@@ -1,0 +1,155 @@
+<div class="main-container" >
+    <div *ngIf="loader"> 
+        <div class="cs-loader">
+            <mat-spinner class="loader"></mat-spinner> 
+        </div>
+    </div>
+    <div class="middle-container">
+        <div class="page-heading">
+            <div class="heading-text bc-space">
+                <div class="back-btn">
+                    <a mat-button routerLink="/customer-list/" routerLinkActive="active"><i class="material-icons">arrow_right_alt</i></a>
+                </div>
+                <h2>Customer Details</h2>
+                <p class="light">{{customer.name | titlecase}}</p>
+            </div>
+        </div>
+        
+        <!-- <div class="cs-btn left-auto">
+            <div class="in-btn">
+                <a mat-raised-button (click)="print()" color="accent" >Print</a>
+            </div>
+        </div> -->
+    </div>
+    <div class="container-outer">
+        <div class="container" >
+            <div class="row mt15">
+                <div class="col s12">
+                    <div class="sprate-box">
+                        <div class="details-info">
+                            <div class="basic-details pl0">
+                                <div class="profile-info">
+                                    <ul>
+                                        <li class="col s4">
+                                            <div class="cs-box">
+                                                <img src="assets/img/username.svg" class="fix-img h35">
+                                                <span>Name</span>
+                                                <p class="link-clr">{{customer.name | titlecase}}</p>
+                                                <a class="edit-icon" color="accent" matRipple matTooltip="EDIT" (click)="open_edit('name')"><i class="material-icons">create</i></a>
+                                            </div>
+                                        </li>
+                                        <li class="col s4">
+                                            <div class="cs-box">
+                                                <img src="assets/img/gmail.svg" class="fix-img">
+                                                <span>Email</span>
+                                                <p class="link-clr">{{customer.email == ''? 'N.A' : customer.email}}</p>
+                                                <a class="edit-icon" color="accent" matRipple matTooltip="EDIT" (click)="open_edit('email')"><i class="material-icons">create</i></a>
+                                            </div>
+                                        </li>
+                                        <li class="col s4">
+                                            <div class="cs-box">
+                                                <img src="assets/img/phone.svg" class="fix-img">
+                                                <span>Phone</span>
+                                                <p class="link-clr">{{customer.mobile_1}}</p>
+                                                <a class="edit-icon" color="accent" matRipple matTooltip="EDIT" (click)="open_edit('mobile_1')"><i class="material-icons">create</i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col s8">
+                    <div class="sprate-box padding0">
+                        <div class="full-address">
+                            <div class="top-heading">
+                                <h2>ADDRESS</h2>
+                            </div>
+                            <a mat-button class="address-edit" matTooltip="EDIT" color="accent" (click)="open_edit('address')"><i class="material-icons">edit</i></a>
+                            <div class="nationality">
+                                <img src="assets/img/india.svg" alt="">
+                            </div>
+                            
+                            <div class="ds-from-fields">
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>State</p>
+                                        <p>{{customer.state | titlecase}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>District</p>
+                                        <p>{{customer.district | titlecase}}</p>                  
+                                    </div>
+                                    <div class="static-info">
+                                        <p>City</p>
+                                        <p>{{customer.city | titlecase}}</p>
+                                    </div>
+                                    <div class="static-info">
+                                        <p>Pin Code</p>
+                                        <p>{{customer.pincode | titlecase}}</p>
+                                    </div>
+                                </div>
+                                <div class="cs-row">
+                                    <div class="static-info">
+                                        <p>Address</p>
+                                        <p>{{customer.address | titlecase}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col s12">
+                    <div class="heading-bg left-right-20 mb0">
+                        <h2>ORDER INFORMATION</h2>
+                    </div>
+                    <div class="cs-table left-right-20">
+                        <div class="table-head">
+                            <table>
+                                <tr>
+                                    <th class="w50">S.No</th>
+                                    <th class="w120">Date</th>
+                                    <th class="w150">Created By</th>
+                                    <th class="w120 text-center">Order ID</th>
+                                    <th class="text-center">Other Details</th>
+                                    <th class="w70 text-center">Total Item</th>
+                                    <th class="w120 text-center">Order Value</th>
+                                    <th class="w120 text-center">Payment</th>
+                                    <th class="w120 text-center">Order Status</th>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-content">
+                                <table>
+                                    <tr *ngFor="let row of order_list;let i=index;">
+                                        <td class="w50">{{(i+1)}}</td>
+                                        <td class="w120">{{row.date_created | date : 'd MMM ,y'}}</td>
+                                        <td class="w150">{{row.created_by_name | titlecase}}</td>
+                                        <td class="w120 text-center"><a mat-button routerLink="/order-detail/{{row.ecrpt_id}}/pending" routerLinkActive="active" class="link-btn">#ORD{{row.id}}</a></td>
+                                        <td class="text-center">Not Available</td>
+                                        <td class="w70 text-center">{{row.total_item}}</td>
+                                        <td class="w120 text-center">{{row.order_total}}</td>
+                                        <td class="w120 text-center">{{row.payment_total}}</td>
+                                        <td class="w120 text-center">{{row.status | titlecase}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="h50"></div>

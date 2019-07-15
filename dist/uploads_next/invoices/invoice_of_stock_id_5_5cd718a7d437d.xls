@@ -1,0 +1,647 @@
+
+	<div class="tab-content">
+		<div>
+		    <!--<div class="logo" style="width: 200px; padding: 0px 15px; margin-bottom: 15px;">-->
+		    <!--   <img src="./assets/img/logo.png" style="width: 100%;">-->
+		    <!--</div>-->
+			<!-- -->
+			<div class=" col-md-12">
+				<div class="row">
+					<div class="col-md-4 mrt30m">
+						<div class="details">
+							<div class="dt-heading">
+								<b>
+									<i class="fa fa-caret-right"></i>Order Detail
+								</b>
+							</div>
+							<div class="custome-table ">
+								<table>
+									<tbody><tr>
+										<th class="w20">Order No.</th>
+										<td class="w30">
+											<strong class="ng-binding">#ORD148</strong>
+										</td>
+										<th class="w20">Order Date</th>
+										<td class="w30">
+											<strong class="ng-binding">01-May-2019, 10:15 AM</strong>
+										</td>
+									</tr>
+									
+									<tr>
+										<th class="w100">Created By</th>
+										<td>
+											<strong class="ng-binding">ADARSH ASM</strong>
+										</td>
+										<th class="w100">Total Item</th>
+										<td>
+											<strong class="ng-binding">2</strong>
+										</td>
+									</tr>
+									<!-- <tr>
+										<th class="w100">Retailer</th>
+										<td>
+											<strong>{{order_detail.ret_name}}</strong>
+										</td>
+									</tr> -->
+									<tr>
+										
+										
+									</tr>
+							        <!-- ngIf: order_detail.remark -->
+									<!-- ngIf: order_detail.delivery_status == 'Delivered' -->
+
+									<!--<tr ng-if="order_detail.delivery_status == 'Reject'">-->
+									<!--	<th class="w100">Rejected By</th>-->
+									<!--	<td>{{order_detail.rejected_by_name}}</td>-->
+									<!--</tr>-->
+
+									<!-- ngIf: order_detail.delivery_status == 'Reject' -->
+								</tbody></table>
+							</div>
+						</div>
+					</div>
+
+					
+					<!-- ngIf: order_detail.dr_id != order_detail.distributor_id -->
+
+					<div class="col-md-4">
+						<div class="details">
+							<div class="dt-heading" style="margin-top: 15px;">
+								<b>
+									<i class="fa fa-caret-right"></i>Distributor Information
+								</b>
+							</div>
+							<div class="custome-table last-border-bottom prayag-cs-table">
+								<table>
+									<tbody><tr>
+										<th style="width: 100px;">Name</th>
+										<td>
+											<strong class="ng-binding">DISTRIBUTOR4 TEST</strong>
+										</td>
+											<th style="width: 100px;">Contact Person</th>
+										<td>
+											<strong class="ng-binding">ADARSH</strong>
+										</td>
+									</tr>
+
+								
+									<tr>
+										<th style="width: 100px;">Phone</th>
+										<td>
+											<a class="ng-binding">9608740967</a>
+										</td>
+										<th style="width: 100px;">Dispatch Date</th>
+										<td>
+											
+										</td>
+									</tr>
+									
+									<!-- <tr>
+										<th style="width: 100px;">Distributor Assigned</th>
+										<td>
+											{{order_detail.dist_name}}
+										</td>
+									</tr> -->
+									<!--<tr>-->
+									<!--	<th style="width: 100px;">Address</th>-->
+									<!--	<td>-->
+									<!--		{{order_detail.street1}}, {{order_detail.area1}} {{order_detail.city1}}, {{order_detail.district_name1}}, {{order_detail.state_name1}}, {{order_detail.pincode1}}-->
+									<!--	</td>-->
+									<!--</tr>-->
+								</tbody></table>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+
+			<div class="col-sm-12 mrt30">
+				<div class="details">
+					<div class="dt-heading" style="width: 100%; display: inline-block;">
+						<b>
+							<i class="fa fa-caret-right"></i>Order Items Details
+						</b>
+					</div>
+					<div class="custome-table table-scroll">
+						<table style="width: 100%; table-layout: fixed; border-collapse: collapse; box-sizing: border-box; min-width: 100% !important;">
+							<tbody><!-- ngIf: allproduct >= 4 -->
+							<!-- ngIf: allproduct==1 -->
+							<!-- ngIf: allproduct==2 -->
+							<!-- ngIf: allproduct==3 -->
+						    <!-- ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope" style="">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1013</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1018</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1016A</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1019</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1020</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1021</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1010</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1006</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1008</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding"> SD 1016 A</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1016</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1015</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1022</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1023</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1017</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1016</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1012</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1011</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1010</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1009</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1008 A</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1007</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1006</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1005</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1004</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1002</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1001</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1014</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1015</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1024</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1025</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1003</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2001</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2007</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2006</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2005</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2027</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2061</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2003</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2063</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2008</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2009</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2010</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2011</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2012</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2004</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2062</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2064</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2002</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2058</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2016</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2015</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2021</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2020</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2019</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2018</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2017</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2053</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2052</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2051</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2022</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2023</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2024</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2056</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2010</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2057</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2009</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2054</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2026</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2025</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2055</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3012</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3013</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3014</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3015</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3016</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3017</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3011</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3010</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3009</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3007</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3008</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3005</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3004</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3003</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3001</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3018</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3006</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3002</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4026</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4008</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4009</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4005</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4051</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4050</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4052</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4053</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4054</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4007</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4006</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4004</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4027</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4025</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4028</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4029</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4030</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4001</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4002</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4003</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4055</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5003</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5007</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5006</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5005</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5004</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5002</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5001</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5008</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6002</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6010</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6011</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6012</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6004</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6009</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6003</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6013</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6008</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6007</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor --><tr ng-repeat="row in prtor" class="ng-scope">
+					        	<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6014</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6005</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6006</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% !important;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtor -->
+						</tbody></table>
+					</div>
+				</div>
+			
+				<div class="details mrt30">
+					<div class="dt-heading" style="width: 100%; display: inline-block;">
+						<b class="ng-binding">
+							<i class="fa fa-caret-right"></i>Order Series Details
+					
+						</b>
+					</div>
+					
+					<div class="custome-table table-scroll">
+						<table style="width: 100%; table-layout: fixed; border-collapse: collapse; box-sizing: border-box; min-width: 100% !important;">
+							<tbody><!-- ngIf: allseries >= 4 -->
+							<!-- ngIf: allseries == 1 -->
+							<!-- ngIf: allseries == 2 -->
+							<!-- ngIf: allseries == 3 -->
+							<!-- ngRepeat: row in prtsr --><tr ng-repeat="row in prtsr" class="ng-scope" style="">
+								<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 1000</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% ;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 2000</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% ;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 3000</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% ;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 4000</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% ;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtsr --><tr ng-repeat="row in prtsr" class="ng-scope">
+								<!-- ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 5000</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% ;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 6000</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% ;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row --><td colspan="2" ng-repeat="row1 in row" class="ng-scope">
+							        <span style="width:70% !important;display:inline-block"><strong style="font-weight: 600 !important;" class="ng-binding">SD 8000</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					    	        <span style="width:28% ;display:inline-block;" class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					    	    </td><!-- end ngRepeat: row1 in row -->
+							</tr><!-- end ngRepeat: row in prtsr -->
+						</tbody></table>
+						<table style="width: 70%; table-layout: fixed;margin-top:5px; border-collapse: collapse; box-sizing: border-box; min-width: 70% !important;font-weight:800;">
+						   <tbody><tr><th></th><td></td></tr>
+						    <tr style="font-weight: 700 !important;"><th><b>Grand Total : </b></th><td><b class="ng-binding">2</b></td></tr>
+						</tbody></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>

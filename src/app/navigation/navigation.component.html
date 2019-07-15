@@ -1,0 +1,228 @@
+<div class="navigation">
+    <div class="logo">
+        <div class="outer">
+            <div class="inner">
+                <div class="profile-area">
+                    <img src="assets/img/theme/wheel-power/logo.png">
+                </div>
+                <div id="nav-icon2" (click)="toggleNav()" matRipple>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="menu" *ngIf="abq_user.login_type == 'admin'">
+        <ul>
+            <li>
+                <a >Dashboard <img src="assets/img/dashboard_icon.svg" class="nav-icon h20"></a>
+            </li>
+            <li>
+                <a routerLink="/customer-list" routerLinkActive="active">Customers <img src="assets/img/distribution_icon.svg " class="nav-icon h25"></a>
+                <!-- <ul>
+                    <li>
+                        <a>
+                            Distribution Net.
+                            <i class="material-icons"> arrow_right_alt  </i>   
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Distribution Net.
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                </ul> -->
+            </li>
+            <li>
+                <a routerLink="/order-list/pending" routerLinkActive="active">Orders <img src="assets/img/order_icon.svg" class="nav-icon h25"></a>
+            </li>
+            <li>
+                <a routerLink="/order-payment" routerLinkActive="active">Payments <img src="assets/img/payment_icon.svg" class="nav-icon h25"></a>
+            </li>
+            <!-- <li >
+                <a >Invoice <img src="assets/img/invoice_icon.svg" class="nav-icon h25"></a>
+            </li> -->
+         
+            <li>
+                <a routerLink="/stock-list" routerLinkActive="active">Stock <img src="assets/img/invoice_icon.svg" class="nav-icon h25"></a>
+            </li>
+            <!-- <li class="dropdown">
+                <a (click)="toggleDropdown()" >Stock <img src="assets/img/invoice_icon.svg" class="nav-icon h25"></a>
+                <ul>
+                    <li>
+                        <a routerLink="/stock-list" routerLinkActive="active">
+                            Stock
+                            <i class="material-icons"> arrow_right_alt  </i>   
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/stock-return-list" routerLinkActive="active">
+                            Sales Return
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/stock-sifting-list" routerLinkActive="active">
+                            Stock Shifting
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+            <li class="dropdown">
+                <a  (click)="toggleDropdown()" >Masters <img src="assets/img/master_icon.svg" class="nav-icon h25"></a>
+
+                <ul>
+                    <li>
+                        <a routerLink="/product-list" routerLinkActive="active">
+                            Products
+                            <i class="material-icons"> arrow_right_alt  </i>   
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/sale-user-list" routerLinkActive="active">
+                            Users
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/manufacture-list" routerLinkActive="active">
+                            Vendor
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/warehouse-list" routerLinkActive="active">
+                            Warehouse
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+        <div class="h80"></div>
+    </div>
+
+
+<!-- ///////////////// Warehouse Menu //////////////////// -->
+
+
+
+    <div class="menu" *ngIf="abq_user.login_type != 'admin'">
+        <ul>
+            <li>
+                <a routerLink="/product-list" (click)="false_toggle()" routerLinkActive="active">Product <img src="assets/img/master_icon.svg" class="nav-icon h25"></a>
+            </li>
+            <!-- <li>
+                <a routerLink="/stock-list" routerLinkActive="active">Stock <img src="assets/img/invoice_icon.svg" class="nav-icon h25"></a>
+            </li> -->
+            <li>
+                <a routerLink="/manufacture-list" (click)="false_toggle()" routerLinkActive="active">Vendor <img src="assets/img/distribution_icon.svg" class="nav-icon h25"></a>
+            </li>
+            <!-- <li class="dropdown">
+                <a (click)="toggleDropdown()">Distribution Net. <img src="assets/img/distribution_icon.svg " class="nav-icon h25"></a>
+                <ul>
+                    <li>
+                        <a>
+                            Distribution Net.
+                            <i class="material-icons"> arrow_right_alt  </i>   
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Distribution Net.
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+            <!-- <li class="dropdown" >
+                <a (click)="toggleDropdown()">Orders <img src="assets/img/order_icon.svg" class="nav-icon h25"></a>
+                <ul>
+                    <li>
+                        <a>
+                            Order 1
+                            <i class="material-icons"> arrow_right_alt  </i>   
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Order 2
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                </ul>
+            </li> -->
+            <!-- <li >
+                <a >Invoice <img src="assets/img/invoice_icon.svg" class="nav-icon h25"></a>
+            </li> -->
+            <li class="dropdown">
+                <a  (click)="toggleDropdown()" id="stock" >Stock <img src="assets/img/invoice_icon.svg" class="nav-icon h25"></a>
+                <ul>
+                    <li>
+                        <a routerLink="/stock-list" routerLinkActive="active">
+                            Stock
+                            <i class="material-icons"> arrow_right_alt  </i>   
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/stock-sifting-list" routerLinkActive="active">
+                            Stock Transfer
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a routerLink="/stock-sifting-list" routerLinkActive="active">
+                            Stock Shifting
+                            <i class="material-icons"> arrow_right_alt  </i> 
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+            <li>
+                <a routerLink="/order-dispatch/packing_pend" (click)="false_toggle()" routerLinkActive="active">Order <img src="assets/img/order_icon.svg" class="nav-icon h25"></a>
+            </li>
+        </ul>
+        
+        <div class="h80"></div>
+    </div>
+</div>
+
+<div class="right-navigation">
+    <h2>ADD NEW</h2>
+    <ul>
+        <li>
+            <a (click)="toggleHeader()" routerLink="/add-product" routerLinkActive="active" >Masters <img src="assets/img/master_w.svg" class="nav-icon h25"></a>
+        </li>
+        <!-- <li>
+            <a (click)="toggleHeader()" routerLink="/add-lead" routerLinkActive="active" >Leads<img src="assets/img/lead_w.svg" class="nav-icon"></a>
+        </li> -->
+        <!-- <li>
+            <a (click)="toggleHeader()" >Distribution Net <img src="assets/img/distribution_w.svg" class="nav-icon"></a>
+        </li> -->
+        <!-- <li>
+            <a (click)="toggleHeader()" routerLink="/order-list" routerLinkActive="active">Orders <img src="assets/img/order_w.svg" class="nav-icon"></a>
+        </li> -->
+        <!-- <li>
+            <a >Payments <img src="assets/img/payment_w.svg" class="nav-icon h25"></a>
+        </li> -->
+        <!-- <li>
+            <a (click)="toggleHeader()" >Invoice <img src="assets/img/invoice_w.svg" class="nav-icon h25"></a>
+        </li> -->
+        <!-- <li>
+            <a routerLink="/add-stock" routerLinkActive="active">Stock <img src="assets/img/invoice_w.svg" class="nav-icon h25"></a>
+        </li> -->
+        
+        <!-- <li>
+            <a >Check IN <img src="assets/img/checkin_w.svg" class="nav-icon h25"></a>
+        </li> -->
+        <!-- <li>
+            <a >Complaints <img src="assets/img/complaints_w.svg" class="nav-icon h18"></a>
+        </li> -->
+        
+    </ul>
+</div>

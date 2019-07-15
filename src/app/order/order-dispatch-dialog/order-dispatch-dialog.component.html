@@ -1,0 +1,50 @@
+<mat-dialog-content class="csn-modal" style="display: inline !important">
+    <div *ngIf="loader" class="loader">
+      <div class="outer">
+        <div class="innear">
+          <mat-spinner class="loader"></mat-spinner>
+        </div>
+      </div>
+    </div>
+    <div class="page-heading">
+      <div class="heading-text">
+        <h2>Packing Items </h2>
+      </div>
+    </div>
+    <div class="container-outer">
+      <div class="container" style="width:900px !important;min-height: 100px !important">
+        <div class="row">
+          <div class="col s12">
+            <div class="cs-table left-right-20">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th>Product Description</th>
+                    <th class="w150">Product Code</th>
+                    <th class="w80">Qty</th>
+                  </tr>
+                </table>
+              </div>
+              <div class="table-container">
+                <div class="table-content">
+                  <table>
+                    <tr *ngFor="let row of item_list;let i=index">
+                      <td>{{row.brand | titlecase}} - {{row.category | titlecase}} - {{row.sub_category | titlecase}} - {{row.product_name | titlecase}}</td>
+                      <td class="w150">{{row.cat_no}}</td>     
+                      <td class="w80">{{row.pack_qty}}</td>     
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <mat-dialog-actions align="end">
+        <div class="cs-btn fixedd pr10">
+            <button mat-raised-button (click)="close_dialog()" color="warn">Close</button>
+        </div>
+    </mat-dialog-actions>
+  </mat-dialog-content>

@@ -1,0 +1,83 @@
+<div class="edit-modal">
+    <form #f="ngForm" (ngSubmit)="f.valid && update_customer()">
+        <div mat-dialog-content *ngIf="data.edit_item != 'address' ">
+            <p class="heading">Update</p>
+            <div class="from-fields">
+                <div class="col s12">             
+                    <div class="row mb20">
+                        <div class="col s12 pl0">
+                            <div class="control-field">           
+                                <mat-form-field class="cs-input" >
+                                    <input  type="email" name="email" *ngIf="data.edit_item == 'email'"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"  [(ngModel)]="data.email" matInput placeholder="Email" required>                                   
+                                    <input  type="text" name="mobile_1" *ngIf="data.edit_item == 'mobile_1'" (keypress)="MobileNumber($event)" min="0" maxlength="10" minlength="10"  [(ngModel)]="data.mobile_1" matInput placeholder="Mobile" required>
+                                    <input  type="text" name="name" *ngIf="data.edit_item == 'name'" [(ngModel)]="data.name" matInput placeholder="Name" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col s4 empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div mat-dialog-content *ngIf="data.edit_item == 'address' ">
+            <p class="heading">Update Address</p>
+            <div class="from-fields">
+                <div class="col s12">          
+                    <div class="row">
+                        <div class="col s4 ">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input">
+                                    <mat-select placeholder="State" name="state" [(ngModel)]="data.state"  (selectionChange)="get_district()" required>
+                                        <mat-option *ngFor="let state of state_list" [value]="state.state_name">{{state.state_name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col s4 pr0">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input">
+                                    <mat-select placeholder="District" name="district"  (selectionChange)="get_city()" [(ngModel)]="data.district" required>
+                                        <mat-option *ngFor="let data of district_list" [value]="data.district_name">{{data.district_name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        
+                        <div class="col s4 pr0">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input">
+                                    <mat-select placeholder="City" name="city"  (selectionChange)="get_pincode()"  [(ngModel)]="data.city" required>
+                                        <mat-option *ngFor="let data of city_list" [value]="data.city">{{data.city}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        
+                        <div class="col s4 pr0">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input">
+                                    <input matInput type="text" placeholder="Pincode" (keypress)="MobileNumber($event)" min="0" maxlength="6" minlength="6" name="pincode" [(ngModel)]="data.pincode">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb20">
+                        <div class="col s8 pl0">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input">
+                                    <textarea matInput name="address" placeholder="Address" [(ngModel)]="data.address"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col s4 empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions>
+            <a mat-button (click)="onNoClick()">Cancel</a>
+            <button mat-button>Save</button>
+        </div>
+    </form>
+</div>

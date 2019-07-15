@@ -1,0 +1,58 @@
+<header >
+    <div class="logo">
+        <!-- <img src="assets/img/company_logo.svg"> -->
+        <!-- <img src="assets/img/theme/kenshjn/logo.svg"> -->
+        <div id="nav-icon2" matRipple>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    
+    <!-- <div class="cs-type">
+        <mat-form-field class="sel-opt">
+            <select matNativeControl required>
+                <option value="volvo">Type</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+                <option value="distribution net">Distribution Net.</option>
+            </select>
+        </mat-form-field>
+    </div> -->
+<!--     
+    <div class="top-search wp20">
+        <input type="text" placeholder="SEARCH. . .">
+        <i class="material-icons">search</i>
+    </div> -->
+    
+    <div class="right-data">
+        <div class="outer">
+            <div class="inner">
+                <ul>
+                    <li *ngIf="abq_user.login_type == 'admin'">
+                        <button matRipple class="add-remove" (click)="toggleHeader()">&nbsp;</button>
+                    </li>
+                    <li><a href="#." mat-button><img src="assets/img/report-icon.svg" alt=""></a></li>
+                    <li><a href="#." mat-button><img src="assets/img/transport.svg" alt=""></a></li>
+                    <li class="af-none"><a href="#." mat-button><img src="assets/img/setting.svg" alt=""></a></li>
+                    <li>
+                        <div class="logout-drop">
+                            <div class="mat-drop">
+                                    <!-- <img src="assets/img/profile.jpg" alt=""> -->
+                                <button mat-button [matMenuTriggerFor]="profile">  {{abq_user.name | titlecase}}</button>
+                                <mat-menu x-position="before" #profile="matMenu">
+                                    <a mat-menu-item>Profile</a>
+                                    <a mat-menu-item (click)="logout()">Log Out</a>
+                                </mat-menu>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+</header>

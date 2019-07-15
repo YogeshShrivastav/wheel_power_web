@@ -1,0 +1,262 @@
+<div class="main-container">
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container padding0">
+    <div class="master-heading">
+      <div class="page-heading">
+        <img src="assets/img/leads_icon.svg" class="h-icon">
+        <div class="heading-text">
+          <h2>Order Payments</h2>
+          <p>Total Payments  " {{payment_cn}} "</p>
+        </div>
+      </div>
+      <div class="top-pagination">
+        <ul>
+          <li class="refresh-area">
+            <a class="refresh-btn" (click)="get_payment()" mat-raised-button  matTooltip="Refresh"><i class="material-icons"> refresh</i></a>
+          </li>
+          <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+          
+          <li>
+            <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_payment(pagelimit,start-pagelimit)">
+              <i class="material-icons" >keyboard_arrow_left</i></button>
+            </li>
+            
+            <li>
+              <input type="text" placeholder="GO TO" name="pagenumber" (keyup.enter)="checkpage();get_payment(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+            </li>
+            
+            <li>
+              <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_payment(pagelimit,(start+pagelimit))">
+                <i class="material-icons">keyboard_arrow_right</i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      
+    </div>
+    
+    <div class="container-outer pt0">
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <div class="cs-table left-right-20" *ngIf="payment_list.length > 0">
+              <div class="sticky-head">
+                <div class="table-head">
+                  <table>
+                    <tr>
+                      <th class="w110">Date</th>
+                      <th class="w100 ">Order</th>
+                      <th class="w300">Customer / Mobile No.</th>
+                      <th class="w100 text-right">Payment Total</th>
+                      <!-- <th class="w150 text-center">Payment Status</th> -->
+                      <th>Address</th>
+                      <th class="w100 text-center">Verify</th>
+                    </tr>
+                  </table>
+                </div>
+                
+                
+                <div class="table-head bdrt">
+                  <table>
+                    <tr *ngIf="show">
+                      <th class="w200">
+                        <div class="th-search-acmt">
+                          <!-- <mat-form-field>
+                            <input type="text" placeholder="Brand"  matInput [matAutocomplete]="brand" (keyup)="brand_array_filter(product.brand,brand_list,'brand')" (input)="get_product_category(product.brand);get_product()" [matAutocomplete]="brand" name="brand" [(ngModel)]="product.brand">
+                            <mat-autocomplete #brand="matAutocomplete">
+                              <mat-option *ngFor="let data of fltr_brand" (click)="get_product_category(product.brand);get_product()" value="{{data.brand}}">
+                                <small>{{data.brand}}</small></mat-option>
+                              </mat-autocomplete>
+                            </mat-form-field> -->
+                          </div>
+                        </th>
+                        <th  class="w200">
+                          <div class="th-search-acmt">
+                            <!-- <mat-form-field>
+                              <input type="text" placeholder="Category"  matInput [matAutocomplete]="category" (keyup)="category_array_filter(product.category,category_list,'category')" (input)="get_product_subcategory(product.brand,product.category);get_product()" [matAutocomplete]="Catergory" name="category" [(ngModel)]="product.category">
+                              <mat-autocomplete #category="matAutocomplete">
+                                <mat-option  *ngFor="let data of fltr_category" (click)="get_product_subcategory(product.brand,product.category);get_product()" value="{{data.category}}">
+                                  <small>{{data.category}}</small></mat-option>
+                                </mat-autocomplete>
+                              </mat-form-field> -->
+                            </div>
+                          </th> 
+                          <th class="w300"></th>                                
+                          <th>
+                            <div class="th-search-acmt">
+                              <!-- <mat-form-field>
+                                <input type="text" placeholder="Product Name" (input)="get_product()" matInput [(ngModel)]="product.product_name">                                              
+                              </mat-form-field> -->
+                            </div>
+                          </th>
+                          <!-- <th class="w200"></th> -->
+                          <th class="w80 ">&nbsp;</th>
+                          <th class="w80 p0">&nbsp;</th>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div class="table-container">
+                    <div class="table-content">
+                      <table>
+                        <tr *ngFor="let row of payment_list;let i=index">
+                          <td class="w110">{{row.date_created | date:'d MMM ,y'}}</td>
+                          <td class="w100"><a class="link-btn" routerLink="/order-detail/{{row.ecrpt_id}}/pending" routerLinkActive="active" mat-button>#ORD{{row.order_id}}</a></td>
+                          <td class="w300">{{row.name | titlecase}} / {{row.mobile_1}}</td>
+                          <td class="w100 text-right">&#x20B9; {{row.total_payment ? row.total_payment : '0'}}</td>
+                          <td>{{row.address | titlecase}} - {{row.city | titlecase}} - {{row.district | titlecase}} - {{row.state | titlecase}} , {{row.pincode | titlecase}}</td>
+                          <td class="w100 text-center" *ngIf="row.payment_varification == 'not verified'">
+                            <button (click)="toggle = !toggle;open_varify_dialog(i)" mat-button>Varify</button>                             
+                          </td>
+                          <td class="w100 text-center" *ngIf="row.payment_varification != 'not verified' ">
+                            <img src="assets/img/check.svg" height="30" width="30"> 
+                            <div class="action-btns">
+                              <button mat-button class="delete"  (click)="toggle = !toggle;open_varify_dialog(i)"><i class="material-icons">edit</i> Edit</button>
+                            </div>    
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>                     
+                </div>
+                
+                <div class="data-not-found" *ngIf="payment_list.length == 0">
+                  <img src="assets/img/no-record-found.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>   
+      </div>
+      
+      
+      
+      
+      <div class="pop-right-data" [ngClass] ="{'active' : toggle == true}">
+        <div class="indv">
+          <button mat-fab class="cancle-btn" (click)="toggle = !toggle"><i class="material-icons">arrow_forward</i></button>
+          <div class="bxc" *ngIf="order_credit_detail">
+            <div class="heading">
+              <h2>Credit Details</h2>
+            </div>
+            
+            <div class="one-one">
+              <div class="cs-figure">
+                <p>Date</p>
+                <p>{{order_credit_detail.date_created | date:'d MMM y'}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>No.of days</p>
+                <p>{{order_credit_detail.no_of_days | date:'d MMM y'}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>Amount</p>
+                <p>{{order_credit_detail.date_created | date:'d MMM y'}}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bxc" *ngFor="let row of order_payment">
+            <div class="heading">
+              <h2>{{row.mode | titlecase}}</h2>
+            </div>
+            
+            <div class="one-one" *ngIf="row.mode == 'cheque'">
+              <div class="cs-figure">
+                <p>Bank</p>
+                <p>{{row.bank | titlecase}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>Cheque No.</p>
+                <p>{{row.cheque_no}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>Cheque Date</p>
+                <p>{{row.cheque_date | date: 'd MMM , y'}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>Amount</p>
+                <p>{{row.amount}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>Status</p>
+                <p *ngIf="row.varify == 'verified'">Verified</p>
+                <div class="cs-btn left-auto" *ngIf="row.varify != 'verified'">
+                  <div class="in-btn">
+                    <a mat-raised-button (click)="varify_payment(row.id,'varify')" color="accent" >Verify</a>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-figure" *ngIf="row.varify == 'verified'">
+                <p>Action</p>
+                <div class="cs-btn left-auto">
+                  <div class="in-btn">
+                    <a mat-raised-button (click)="varify_payment(row.id,'undo')" color="accent" >Undo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="one-one" *ngIf="row.mode == 'card'">
+              <div class="cs-figure">
+                <p>Transaction Id</p>
+                <p>{{row.trans_id}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>Amount</p>
+                <p>{{row.amount}}</p>
+              </div>
+              <div class="cs-figure">
+                <p>Status</p>
+                <p *ngIf="row.varify == 'verified'">Verified</p>
+                <div class="cs-btn left-auto" *ngIf="row.varify != 'verified'">
+                  <div class="in-btn">
+                    <a mat-raised-button (click)="varify_payment(row.id,'varify')" color="accent" >Verify</a>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-figure" *ngIf="row.varify == 'verified'">
+                <p>Action</p>
+                <div class="cs-btn left-auto">
+                  <div class="in-btn">
+                    <a mat-raised-button (click)="varify_payment(row.id,'undo')" color="accent" >Undo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="one-one" *ngIf="row.mode == 'cash'">
+              <div class="cs-figure wp50">
+                <p>Amount</p>
+                <p>{{row.amount}}</p>
+              </div>
+              <div class="cs-figure wp50">
+                <p>Status</p>
+                <p *ngIf="row.varify == 'verified'">Verified</p>
+                <div class="cs-btn left-auto" *ngIf="row.varify != 'verified'">
+                  <div class="in-btn">
+                    <a mat-raised-button (click)="varify_payment(row.id,'varify')" color="accent" >Verify</a>
+                  </div>
+                </div>
+              </div>
+              <div class="cs-figure" *ngIf="row.varify == 'verified'">
+                <p>Action</p>
+                <div class="cs-btn left-auto">
+                  <div class="in-btn">
+                    <a mat-raised-button (click)="varify_payment(row.id,'undo')" color="accent" >Undo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

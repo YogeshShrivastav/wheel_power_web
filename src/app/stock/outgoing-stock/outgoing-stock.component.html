@@ -1,0 +1,63 @@
+<div class="main-container" [@routerTransition]>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>Outgoing Stock</h2>
+        <p>Total " 25 "</p>
+      </div>
+    </div>
+    
+    <div class="tabs right-tab">
+        <ul>
+          <li><a routerLink="/incoming-stock/{{stock_id}}" routerLinkActive="active">INCOMING</a></li>
+          <li><a routerLink="/outgoing-stock/{{stock_id}}" routerLinkActive="active">OUTGOING</a></li>
+        </ul>
+      </div>
+  </div>
+  
+  <div class="container-outer">
+    <div class="container" >
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20">
+            <div class="table-head">
+              <table>
+                <tr>
+                  <th class="w200">Date / Name</th>
+                  <th class="w230">Customer Info</th>
+                  <th>Customer Address</th>
+                  <th class="w200 text-right">Amount</th>
+                  <th class="w100 text-center">QTY</th>
+                </tr>
+              </table>
+            </div>
+            
+            <div class="table-container">
+              <div class="table-content">
+                <table>
+                  <tr>
+                    <td class="w200">12 Jan 2019 / Admin</td>
+                    <td class="w230">Customer ABC / 9874587458</td>
+                    <td>Address</td>
+                    <td class="w200 text-right">₹5562</td>
+                    <td class="w100 text-center">10</td>
+                  </tr>
+                  <tr>
+                    <td>12 Jan 2019 / Admin</td>
+                    <td>Customer ABC / 9874587458</td>
+                    <td>Address</td>
+                    <td class="text-right">₹5562</td>
+                    <td class="text-center">10</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,266 @@
+<div class="main-container" [@routerTransition]>
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container">
+    <div class="page-heading">
+      <div class="heading-text bc-space">
+        <div class="back-btn">
+          <a mat-button routerLink="/product-list" routerLinkActive="active"><i class="material-icons">arrow_right_alt</i></a>
+        </div>
+        <h2>{{product.product_name}}</h2>
+        <p class="light">{{product.category}}</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container-outer">
+    <div class="container" >
+      <div class="row">
+        <div class="col s8 pr10">
+          <div class="sprate-box ">
+            <div class="cs-heading">
+              <h2>PRODUCT DETAIL</h2>
+            </div>
+            
+            <mat-divider class="left-right-15 mt10"></mat-divider>
+            <div class="details-thumbnail">
+              <div class="row">
+                <div class="col s4 pl0">
+                  <div class="detail-field">
+                    <span>Category</span>
+                    <p>{{product.category}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.category,'category','Category')" ><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+                <div class="col s4 ">
+                  <div class="detail-field">
+                    <span>Sub Category</span>
+                    <p>{{product.sub_category}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.sub_category,'sub_category','Sub Category')"><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+                <div class="col s4 pr0">
+                  <div class="detail-field">
+                    <span>Brand</span>
+                    <p>{{product.brand}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.brand,'brand','Brand')"><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col s8 pl0">
+                  <div class="detail-field">
+                    <span>Product Name</span>
+                    <p>{{product.product_name}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.product_name,'product_name','Product Name')"><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+                
+                <div class="col s4 pr0">
+                  <div class="detail-field">
+                    <span>Product Code</span>
+                    <p>{{product.cat_no}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.cat_no,'cat_no','Product Code')"><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col s4 pl0">
+                  <div class="detail-field">
+                    <span>Unit of Measurement</span>
+                    <p>{{product.unit_type}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.unit_type,'unit_type','Unit of Measurement')"><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="detail-field">
+                    <span>Minimum Quantity</span>
+                    <p>{{product.min_qty}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.min_qty,'min_qty','Minimum Quantity')"><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+                <div class="col s4 pr0">
+                  <div class="detail-field">
+                    <span>Master Packing</span>
+                    <p>{{product.master_packing}}</p>
+                    <a matTooltip="Edit Detail" (click)="openEditDialog(product.master_packing,'master_packing','Master Packing')"><i class="material-icons"> create </i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sprate-box  mt20" [ngClass]="{'active':active.slide==true}">
+            <div class="cs-heading">
+              <h2>PRODUCT FEATURES</h2>
+            </div>
+            
+            <mat-divider class="left-right-15 mt10"></mat-divider>
+            
+            <!-- <div class="slide-down" > -->
+              <div class="">
+                <div class="from-fields">
+                  <div class="row">
+                    <div class="col s4 pl0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Enter Type" type="text" name="feature" [(ngModel)]="feat.feature">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    
+                    <div class="col s8 pr0">
+                      <div class="control-field pr80">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Value Enter with ( , )" name="value" [(ngModel)]="feat.value">
+                        </mat-form-field>
+                        <div class="plus-btn">
+                          <button mat-raised-button color="accent" [disabled]="!feat.feature || !feat.value" (click)="addfeature()">
+                            <i class="material-icons">add</i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 padding0">
+                  <div class="cs-table left-right-15" *ngIf="feature_data.length>0">
+                    <div class="table-head">
+                      <table>
+                        <tr>
+                          <th class="w230">Type</th>
+                          <th class=" bdr0">Values</th>
+                        </tr>
+                      </table>
+                    </div>
+                    
+                    <div class="table-container">
+                      <div class="table-content none-shadow">
+                        <table >
+                          <tr *ngFor="let row of feature_list;let list_index=index">
+                            <td class="w230" >{{row.feature}}</td>
+                            <td>
+                              <div class="tags">
+                                <ul>
+                                  <ng-container *ngFor="let data of feature_data;let data_indx=index">
+                                    <li *ngIf="row.feature != 'color' && data.feature == row.feature">
+                                      <span>{{data.value}}
+                                        <div class="action-item">
+                                          <a class="red-bg" matTooltip="Delete" (click)="delete_feature_value(feature_data,data_indx,data.id)"><i class="material-icons">delete</i></a>
+                                        </div>
+                                      </span>
+                                    </li>
+                                    <li *ngIf="row.feature == 'color' && data.feature == row.feature">
+                                      <span class="yellow-bg" *ngIf="data.value == 'yellow'">{{data.value}}
+                                        <div class="action-item">
+                                          <a class="red-bg" matTooltip="Delete" (click)="delete_feature_value(feature_data,data_indx,data.id)"><i class="material-icons">delete</i></a>
+                                        </div>
+                                      </span>
+                                      <span class="red-bg" *ngIf="data.value == 'red'">{{data.value}}
+                                        <div class="action-item">
+                                          <a class="red-bg" matTooltip="Delete" (click)="delete_feature_value(feature_data,data_indx,data.id)"><i class="material-icons">delete</i></a>
+                                        </div>
+                                      </span>
+                                      <span class="green-bg" *ngIf="data.value == 'green'">{{data.value}}
+                                        <div class="action-item">
+                                          <a class="red-bg" matTooltip="Delete" (click)="delete_feature_value(feature_data,data_indx,data.id)"><i class="material-icons">delete</i></a>
+                                        </div>
+                                      </span>
+                                      <span *ngIf="data.value != 'green' && data.value != 'red' && data.value != 'yellow'">{{data.value}}
+                                        <div class="action-item">
+                                          <a class="red-bg" matTooltip="Delete" (click)="delete_feature_value(feature_data,data_indx,data.id)"><i class="material-icons">delete</i></a>
+                                        </div>
+                                      </span>
+                                    </li>
+                                  </ng-container>
+                                </ul>
+                              </div>
+                            </td>
+                            <td class="w130">
+                              <a mat-button class="del-btn" (click)="delete_feature(product_id,row.feature)">Delete</a>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="col s4">
+            <div class="sprate-box">
+              <div class="cs-logs">
+                <div class="cs-heading">
+                  <h2>PRODUCT IMAGES</h2>
+                  <label>
+                    <input type="file" style="display: none;" (change)="selectvalue($event)" multiple>
+                    Add New
+                  </label>
+                </div>
+                
+                <mat-divider class="left-right-15 mt10"></mat-divider>
+                <div class="logs-outer padding0">
+                  <div class="cs-image">
+                    <div class="vertical-img multiple-img" *ngIf="image_data.length > 2">
+                      <ul>
+                        <li class="overlay-content" *ngFor="let image of image_data;let index=index">
+                          <img src="{{upload_url}}{{image.image}}">
+                          <div class="tittle">
+                          </div>
+                          <a class="close" matRipple matTooltip="Delete" (click)="delete_image(image.id)"><i class="material-icons">delete_sweep</i></a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="vertical-img double-img" *ngIf="image_data.length == 2">
+                      <ul>
+                        <li class="overlay-content" *ngFor="let image of image_data;let index=index">
+                          <img src="{{upload_url}}{{image.image}}">
+                          <div class="tittle">
+                          </div>
+                          <a class="close" matRipple matTooltip="Delete" (click)="delete_image(image.id)"><i class="material-icons">delete_sweep</i></a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="vertical-img" *ngIf="image_data.length == 1">
+                      <ul>
+                        <li class="overlay-content" *ngFor="let image of image_data;let index=index">
+                          <img src="{{upload_url}}{{image.image}}">
+                          <div class="tittle">
+                          </div>
+                          <a class="close" matRipple matTooltip="Delete" (click)="delete_image(image.id)"><i class="material-icons">delete_sweep</i></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col s12">
+              <div class="cs-description mt15">
+                <h2>description</h2>
+                <a matTooltip="Edit Detail" (click)="openDescDialog(product.description,'description','Description')" class="edit-btn"><i class="material-icons"> create </i></a>
+                <div [innerHTML]="product.description"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="h50"></div>

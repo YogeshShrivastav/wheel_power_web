@@ -1,0 +1,95 @@
+<div class="main-container">
+    <div *ngIf="loader" class="loader">
+        <div class="outer">
+            <div class="innear">
+                <mat-spinner class="loader"></mat-spinner>
+            </div>
+        </div>
+    </div>
+    <div class="middle-container">
+        <div class="page-heading">
+            <img src="assets/img/leads_icon.svg" class="h-icon">
+            <div class="heading-text">
+                <h2>Customer</h2>
+                <p>Total Customer {{customer_cn}} </p>
+            </div>
+        </div>
+        
+        <div class="top-search wp20">
+            <input type="text" placeholder="SEARCH. . ." name="search_customer" (input)="get_customer()" [(ngModel)]="search.search_customer">
+            <i class="material-icons">search</i>
+        </div>      
+        <div class="top-pagination">
+            <ul>
+                
+                <li class="refresh-area">
+                    <a class="refresh-btn" mat-raised-button  matTooltip="Refresh" (click)="refresh()"><i class="material-icons"> refresh</i></a>
+                </li>
+                <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+                
+                <li *ngIf="totalpage > 1">
+                    <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_customer(pagelimit,start-pagelimit)">
+                        <i class="material-icons" >keyboard_arrow_left</i>
+                    </button>
+                </li>
+                
+                <li *ngIf="totalpage > 1">
+                    <input type="text" placeholder="GO TO" name="pagenumber"  (keyup.enter)="checkpage();get_customer(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+                </li>
+                
+                <li *ngIf="totalpage > 1">
+                    <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_customer(pagelimit,(start+pagelimit))">
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </button>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+    
+    <div class="container-outer pt0">
+        <div class="container" >
+            <div class="row">
+                <div class="col s12">
+                    <div class="cs-table left-right-20" *ngIf="customer_list.length > 0">
+                        <div class="sticky-head">
+                            <div class="table-head">
+                                <table>
+                                    <tr>
+                                        <th class="w220">Date Created / Created By</th>
+                                        <th class="w150">Name</th>
+                                        <th class="w200">Mobile</th>
+                                        <th class="w250">Email</th>
+                                        <th>Address</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <div class="table-content">
+                                <table>
+                                    <tr *ngFor="let row of customer_list;let i=index">
+                                        <td class="w220">{{row.date_created | date: 'd MMM ,y'}} / {{row.created_by_name == null? 'Self' : row.created_by_name | titlecase}}</td>
+                                        <td class="w150"><a class="link-btn" routerLink="/customer-detail/{{row.ecrpt_id}}" routerLinkActive="active" mat-button>{{row.name | titlecase}}</a></td>
+                                        <td class="w200">{{row.mobile_1}}{{row.mobile_2? ','+row.mobile_2:''}}</td>
+                                        <td class="w250">{{row.email? row.email : 'N.A'}}</td>
+                                        
+                                        <td>{{row.address}}{{!row.city? '' : ' , '+row.city | titlecase}},{{!row.district? '' : ' , '+row.district | titlecase}}{{!row.state? '' : ' , '+row.state | titlecase}}{{!row.pincode? '' : ' - '+row.pincode | titlecase}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    <div class="data-not-found" *ngIf="customer_list.length == 0">
+                        <img src="assets/img/no-record-found.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,101 @@
+<div class="main-container" [@routerTransition]> 
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>Leaves & Holidays</h2>
+        <p>Add New Leave Rule & Holiday</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-outer">
+    <app-master-tab></app-master-tab>
+    <div class="container tab-container" >
+      <div class="row">
+        <div class="col s12">
+          <div class="sprate-box pb0">
+            <div class="cs-heading">
+              <h2>ADD LEAVES & HOLIDAYS</h2>
+              <span class="required">Indicates required fields ( <sup>*</sup> )</span>
+            </div>
+            <mat-divider class="left-right-15 mt10"></mat-divider>
+            
+            
+            <div class="row">
+              <div class="col s12 padding0">
+                <div class="tabs mt15">
+                  <ul>
+                    <li><a routerLink="/add-leave-rules" routerLinkActive="active">LEAVES RULES</a></li>
+                    <li><a routerLink="/add-holiday" routerLinkActive="active">HOLIDAYS</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="row">
+              <div class="col s12">
+                <div class="select-one">
+                  <mat-radio-group>
+                    <mat-radio-button value="1">National</mat-radio-button>
+                    <mat-radio-button value="2">Regional</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="from-fields">
+              <div class="row">
+                
+                <div class="col s6 pl0">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                
+                <div class="col s6 pr0">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <input matInput placeholder="Holiday Title">
+                    </mat-form-field>
+                  </div>
+                </div>
+                
+                <div class="col s6 pl0">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <mat-select placeholder="State">
+                        <mat-option>Haryana</mat-option>
+                        <mat-option>Rajasthan</mat-option>
+                        <mat-option>Punjab</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col s12 padding0">
+                <div class="cs-btn fixedd mt30 text-right">
+                  <div class="in-btn">
+                    <button mat-raised-button color="accent">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+<div class="h50"></div>

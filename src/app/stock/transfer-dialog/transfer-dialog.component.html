@@ -1,0 +1,51 @@
+<mat-dialog-content class="csn-modal">
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="page-heading">
+    <div class="heading-text">
+      <h2>Stock </h2>
+      <p *ngIf="page_type == 'in' ">Received stock</p>
+      <p *ngIf="page_type == 'out' ">Transfered stock</p>
+    </div>
+  </div>
+  <div class="container-outer">
+    <div class="container" style="width:500px !important;min-height: 100px !important">
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20">
+            <div class="table-head">
+              <table>
+                <tr>
+                  <th class="w200">Date</th>
+                  <th class="w80">Quantity</th>
+                </tr>
+              </table>
+            </div>
+            
+            <div class="table-container">
+              <div class="table-content">
+                <table>
+                  <tr *ngFor="let row of transfer_detail_list;let i=index">
+                    <td class="w200">{{row.date_created | date : 'd MMM, y  h:m:s a'}}</td>
+                    <td class="w80">{{row.qty}}</td>     
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions align="end">
+      <div class="cs-btn fixedd pr10">
+          <button mat-raised-button (click)="close_dialog()" color="warn">Close</button>
+      </div>
+  </mat-dialog-actions>
+</mat-dialog-content>

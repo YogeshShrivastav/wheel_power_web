@@ -1,0 +1,5 @@
+[03-May-2019 17:27:27 Etc/GMT] PHP Fatal error:  Cannot redeclare warehouse::incoming_stock_detail() in /home2/nextsiub/public_html/wheel_power_new/wheel_power_api/application/controllers/Warehouse.php on line 431
+[03-May-2019 17:27:36 Etc/GMT] PHP Fatal error:  Cannot redeclare warehouse::incoming_stock_detail() in /home2/nextsiub/public_html/wheel_power_new/wheel_power_api/application/controllers/Warehouse.php on line 431
+[04-May-2019 05:28:24 Etc/GMT] PHP Fatal error:  Cannot redeclare stock::get_incoming_stock() in /home2/nextsiub/public_html/wheel_power_new/wheel_power_api/application/controllers/Stock.php on line 522
+[04-May-2019 05:28:37 Etc/GMT] PHP Fatal error:  Cannot redeclare stock::get_incoming_stock() in /home2/nextsiub/public_html/wheel_power_new/wheel_power_api/application/controllers/Stock.php on line 522
+[04-May-2019 05:28:42 Etc/GMT] PHP Fatal error:  Cannot redeclare stock::get_incoming_stock() in /home2/nextsiub/public_html/wheel_power_new/wheel_power_api/application/controllers/Stock.php on line 522

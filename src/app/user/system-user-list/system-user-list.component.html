@@ -1,0 +1,121 @@
+<div class="main-container" [@routerTransition]>
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text w250">
+        <h2>User</h2>
+        <p>Total Users " {{row_cn}} "</p>
+      </div>
+    </div>
+    <div class="tabs">
+      <ul>
+        <li><a routerLink="/sale-user-list" routerLinkActive="active">SALES USERS</a></li>
+        <li><a routerLink="/system-user-list" routerLinkActive="active">SYSTEM USERS</a></li>
+      </ul>
+    </div>
+    
+    <div class="top-search wp20 ml16">
+      <input type="text" placeholder="SEARCH. . ." name="search_user" (input)="get_all_user()" [(ngModel)]="search.search_user">
+      <i class="material-icons">search</i>
+    </div>
+    
+    <div class="top-pagination">
+      <ul>
+        <li class="refresh-area">
+          <a class="refresh-btn" (click)="refresh()" mat-raised-button  matTooltip="Refresh"><i class="material-icons"> refresh</i></a>
+        </li>
+        <li><p>Pages {{pagenumber}} Of {{totalpage}}</p></li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_all_user(pagelimit,start-pagelimit)">
+            <i class="material-icons" >keyboard_arrow_left</i>
+          </button>
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <input type="text" placeholder="GO TO" name="pagenumber" min="1"  (keyup.enter)="checkpage();get_all_user(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber">
+        </li>
+        
+        <li *ngIf="totalpage > 1">
+          <button mat-button class="right-btn"  ng-disabled="true" [disabled]="pagenumber == totalpage" (click)="get_all_user(pagelimit,(start+pagelimit))">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </button>
+        </li>
+      </ul>
+    </div>
+    
+    
+  </div>
+  
+  
+  <div class="container-outer pt0">
+    <!-- <app-master-tab-list></app-master-tab-list> -->
+    
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20" *ngIf="user_list.length > 0">
+            <div class="table-head">
+              <table class="sno-border">
+                <tr>
+                  <th  class="w30">&nbsp;</th>
+                  <th class="w110">
+                    <div class="filter">
+                      <mat-form-field>
+                        <mat-select placeholder="Role">
+                          <mat-option value="option1">Admin</mat-option>
+                          <mat-option value="option2">Sub Admin</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </th>
+                  <th class="w110">Date</th>
+                  <th class="w160">Name</th>
+                  <th>Email</th>
+                  <th class="w170">User Name</th>
+                  <th class="w160">Password</th>
+                  <th class="w60">Status</th>
+                </tr>
+              </table>
+            </div>
+            
+            <div class="table-container">
+              <div class="table-content">
+                <table class="sno-border">
+                  <tr *ngFor="let row of user_list;let i=index">
+                    <td class="w30">{{i+1}}</td>
+                    <td class="w110">{{row.role | titlecase}}</td>
+                    <td class="w110">{{row.date_created | date:'d MMM y'}}</td>
+                    <td class="w160"><a class="link-btn" routerLink="/system-user-detail/{{row.ecrpt_id}}" routerLinkActive="active" mat-button>{{row.name | titlecase}}</a></td>
+                    <td>{{row.email}}</td>
+                    <td class="w170">{{row.username}}</td>
+                    <td class="w160">
+                      <div class="td-input" [ngClass]="{'active':row.active == true}">
+                        <input type="{{row.active? 'password' : 'text'}}" placeholder="" [(ngModel)]="row.password">
+                        <i class="material-icons password show-pass" (click)="toggleterritory(row.active,'open',i)" >visibility</i>
+                        <i class="material-icons password show-hide" (click)="toggleterritory(row.active,'close',i)">visibility_off</i>
+                      </div>
+                    </td>
+                    <td class="w60"> 
+                      <mat-slide-toggle class="switch-toggle" name="user_status" (change)="user_allowed(i,row.id)" [(ngModel)]="row.user_status" color="warn"></mat-slide-toggle>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="data-not-found" *ngIf="user_list.length == 0">
+            <img src="assets/img/no-record-found.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

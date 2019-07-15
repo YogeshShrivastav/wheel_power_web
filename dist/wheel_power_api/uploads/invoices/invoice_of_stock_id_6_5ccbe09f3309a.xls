@@ -1,0 +1,61 @@
+
+      <table>
+        <tbody><tr>
+          <th>S. No.</th>
+          <th>Created By</th>
+          <th>Verified By</th>
+          <th>Name</th>
+          <th>E-mail</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Contact 1</th>
+          <th>Contact 2</th>
+          <th>DOB</th>
+          <th>Street</th>
+          <th>State</th>
+          <th>District</th>
+          <th>City</th>
+          <th>Area</th>
+          <th>Pincode</th>
+          <th>Last Used</th>
+        </tr>
+
+        <!-- ngRepeat: data in myuser --><tr ng-repeat="data in myuser" class="ng-scope" style="">
+          <td class="ng-binding">1</td>
+          <td class="ng-binding">Admin</td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding">adarsh</td>
+          <td class="ng-binding">adarsh@gmail.com</td>
+          <td class="ng-binding">matur1157</td>
+          <td class="ng-binding">8888888888</td>
+          <td class="ng-binding">8888888888</td>
+          <td class="ng-binding">6666666666</td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding">asdadsd</td>
+          <td class="ng-binding">HARYANA</td>
+          <td class="ng-binding">Hisar</td>
+          <td class="ng-binding">Tohana</td>
+          <td class="ng-binding">Chander Kalan B.O</td>
+          <td class="ng-binding">125120</td>
+          <td class="ng-binding">0000-00-00</td>
+        </tr><!-- end ngRepeat: data in myuser --><tr ng-repeat="data in myuser" class="ng-scope">
+          <td class="ng-binding">2</td>
+          <td class="ng-binding">Admin</td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding">yogesh</td>
+          <td class="ng-binding">yogesh.shrivastav1@gmail.com</td>
+          <td class="ng-binding">matur1155</td>
+          <td class="ng-binding">2222222222</td>
+          <td class="ng-binding">2222222222</td>
+          <td class="ng-binding">1111111111</td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding"></td>
+          <td class="ng-binding">0000-00-00</td>
+        </tr><!-- end ngRepeat: data in myuser -->
+      </tbody></table>
+    

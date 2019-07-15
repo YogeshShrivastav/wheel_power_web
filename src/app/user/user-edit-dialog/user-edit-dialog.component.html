@@ -1,0 +1,28 @@
+<div class="edit-modal">
+    <form #f="ngForm" (ngSubmit)="f.valid && update_user()">
+    <div mat-dialog-content>
+    <p class="heading">Update</p>
+        <div class="from-fields">
+            <div class="col s12">             
+                <div class="row mb20">
+                    <div class="col s12 pl0">
+                        <div class="control-field">           
+                            <mat-form-field class="cs-input" >
+                                <input  type="email" name="email" *ngIf="data.edit_item == 'email'"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"  [(ngModel)]="data.email" matInput placeholder="Email" required>                                   
+                                <input  type="text" name="mobile" *ngIf="data.edit_item == 'mobile'" (keypress)="MobileNumber($event)" min="0" maxlength="10" minlength="10"  [(ngModel)]="data.mobile" matInput placeholder="Mobile" required>
+                                <input  type="text" name="username" *ngIf="data.edit_item == 'username'" [(ngModel)]="data.username" matInput placeholder="Username" required>
+                                <input  type="text" name="password" *ngIf="data.edit_item == 'password'" [(ngModel)]="data.password" matInput placeholder="Password" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col s4 empty"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div mat-dialog-actions>
+        <a mat-raised-button color="warn" (click)="onNoClick()">Cancel</a>
+        <button mat-raised-button color="accent">Save</button>
+    </div>
+    </form>
+</div>

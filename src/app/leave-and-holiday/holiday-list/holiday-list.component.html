@@ -1,0 +1,97 @@
+<div class="main-container" [@routerTransition]>
+    <div class="middle-container">
+      <div class="page-heading">
+        <img src="assets/img/leads_icon.svg" class="h-icon">
+        <div class="heading-text pr20">
+          <h2>Leaves & Holidays</h2>
+          <p>Add New Leave Rule & Holiday</p>
+        </div>
+      </div>
+      <div class="tabs">
+        <ul>
+          <li><a routerLink="/leave-rule-list" routerLinkActive="active">LEAVES RULES</a></li>
+          <li><a routerLink="/holiday-list" routerLinkActive="active">HOLIDAYS</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="container-outer">
+        <app-master-tab-list></app-master-tab-list>
+    <div class="container tab-container" >
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20">
+            <div class="table-head">
+              <table class="sno-border">
+                <tr>
+                  <th  class="w30">&nbsp;</th>
+                  <th class="w200">Day</th>
+                  <th class="w200">Date</th>
+                  <th>Holiday</th>
+                  <th>State</th>
+                </tr>
+              </table>
+            </div>
+            
+            <div class="table-container">
+              <div class="table-content">
+                <table class="sno-border">
+                  <tr>
+                    <td class="w30">1</td>
+                    <td class="w200">Monday</td>
+                    <td class="w200">01 January 2018</td>
+                    <td class="green-clr">New Year's Day</td>
+                    <td class="green-clr">Several states</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Tuesday</td>
+                    <td>02 January 2018</td>
+                    <td>New Year's Celebration</td>
+                    <td>Mizoram Only</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>wednesday</td>
+                    <td>03 January 2018</td>
+                    <td>Mannam Jayanthi</td>
+                    <td>Kerala Only</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Thursday</td>
+                    <td>04 January 2018</td>
+                    <td class="green-clr">Guru Gobind Singh Jayanti</td>
+                    <td class="green-clr">Several states</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Friday</td>
+                    <td>05 January 2018</td>
+                    <td>Missionary Day</td>
+                    <td>Mizoram</td>
+                  </tr>
+                  <tr>
+                      <td>6</td>
+                      <td>Saturday</td>
+                      <td>05 January 2018</td>
+                      <td class="green-clr">Sankranti</td>
+                      <td class="green-clr">Several states</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Sunday</td>
+                        <td>05 January 2018</td>
+                        <td class="green-clr">Vasant Panchami</td>
+                        <td class="green-clr">Several states</td>
+                      </tr>
+                </table>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>

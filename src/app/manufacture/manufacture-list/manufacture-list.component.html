@@ -1,0 +1,88 @@
+<div class="main-container" [@routerTransition]>
+  <div *ngIf="loader" class="loader">
+    <div class="outer">
+      <div class="innear">
+        <mat-spinner class="loader"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>Vendor</h2>
+        <p>Total : {{row_cn}}</p>
+      </div>
+    </div>
+    
+    <div class="top-search wp20">
+      <input type="text" placeholder="SEARCH. . ." name="search_name" [(ngModel)]="search.search_name" (input)="get_all_manufecturer()">
+      <i class="material-icons">search</i>
+    </div>
+    
+    <div class="top-pagination">
+      <ul>
+        <li class="refresh-area">
+          <a class="refresh-btn" mat-raised-button  matTooltip="Refresh" (click)="refresh()"><i class="material-icons"> refresh</i></a>
+        </li>
+        <li><p>Pages {{pagenumber}} of {{totalpage}}</p></li>
+        <li *ngIf="totalpage > 1"><button mat-button class="left-btn" [disabled]="pagenumber == 1" (click)="get_all_manufecturer(pagelimit,(start-pagelimit))"><i class="material-icons">keyboard_arrow_left</i></button></li>
+        <li *ngIf="totalpage > 1"><input type="text" placeholder="GO TO" (keyup.enter)="checkpage();get_all_manufecturer(pagelimit,((pagenumber*pagelimit)-pagelimit))" [(ngModel)]="pagenumber"></li>
+        <li *ngIf="totalpage > 1"><button mat-button class="right-btn" [disabled]="pagenumber == totalpage" (click)="get_all_manufecturer(pagelimit,(start+pagelimit))"><i class="material-icons">keyboard_arrow_right</i></button></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="container-outer pt0">
+    <!-- <app-master-tab-list *ngIf="abq_user.login_type == 'admin'"></app-master-tab-list> -->
+    <!-- [ngClass]="{'tab-container': abq_user.login_type == 'admin'}" -->
+    <div class="container" >
+      <div class="row">
+        <div class="col s12">
+          <div class="cs-table left-right-20" *ngIf="result_list.length > 0">
+            <div class="sticky-head">
+              <div class="table-head">
+                <table>
+                  <tr>
+                    <th class="w70">S. No.</th>
+                    <th class="w150">Vendor</th>
+                    <th class="w150">Contact Person</th>
+                    <th class="w100">Mobile</th>
+                    <th class="w170">Email</th>
+                    <th>Address</th>
+                    <th class="w100 text-center">Material Incoming</th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+            <div class="table-container" >
+              <div class="table-content">
+                <table>
+                  <tr *ngFor=" let row of result_list;let i=index;">
+                    <td class="w70">{{(i+1)}}</td>
+                    <td class="w150"><a class="link-btn" mat-button routerLink="/add-manufacture/{{row.ecrpt_id}}" routerLinkActive="active">{{row.name}}</a></td>
+                    <td class="w150">{{row.contact_person | titlecase}}</td>
+                    <td class="w100">{{row.mobile}}</td>
+                    <td class="w170">{{row.email == ''? 'N.A' : row.email}}</td>
+                    <td>{{row.address}} {{row.city? ' , '+row.city : '' }}{{row.district? ' , '+row.district : '' }}{{row.state? ' , '+row.city : '' }}{{row.pincode !='0'? ' - '+row.pincode : '' }}</td>
+                    <td class="w100 text-center">{{row.incoming_stock_cn}}
+                      <div class="action-btns">
+                        <a mat-button class="view" mat-button routerLink="/add-manufacture/{{row.ecrpt_id}}" routerLinkActive="active"><i class="material-icons">remove_red_eye</i> View</a>
+                        <button mat-button class="delete" (click)="removedata(i,row.id)"><i class="material-icons">delete_sweep</i> Delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="data-not-found" *ngIf="result_list.length == 0">
+            <img src="assets/img/no-record-found.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

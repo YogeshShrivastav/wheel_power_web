@@ -1,0 +1,342 @@
+<div class="main-container" [@routerTransition]>
+  <div class="middle-container">
+    <div class="page-heading">
+      <div class="heading-text bc-space">
+        <div class="back-btn">
+          <a mat-button routerLink="/sale-user-list" routerLinkActive="active"><i class="material-icons">arrow_right_alt</i></a>
+        </div>
+        <h2>{{user_data.name | titlecase}}</h2>
+        <p class="light">{{user_data.role | titlecase }}</p>
+      </div>
+    </div>
+    <!-- <div class="tabs right-tab">
+      <ul>
+        <li><a [ngClass]="{'active' : detail}" (click)="change_type('detail')">DETAIL</a></li>
+        <li><a [ngClass]="{'active' : order}" (click)="change_type('order')">ORDERS</a></li>
+        <li><a routerLink="/my-network" routerLinkActive="active">My Network</a></li>
+        <li><a>LEADS</a></li>
+        <li><a>FOLLOWUP</a></li>
+        <li><a routerLink="/target" routerLinkActive="active">Target</a></li>
+        <li><a routerLink="/travel-plan" routerLinkActive="active">Travel Plan</a></li>
+      </ul>
+    </div> -->
+  </div>
+  
+  
+  <div class="container-outer">
+    <div class="container" *ngIf="detail">
+      <div class="row">
+        <div class="col s12">
+          <div class="details-info">
+            <div class="basic-details">
+              <div class="profile-info">
+                <ul>
+                  <li class="col s3">
+                    <div class="cs-box">
+                      <img src="assets/img/gmail.svg" class="fix-img">
+                      <span>Email</span>
+                      <p class="link-clr">{{user_data.email == ''? 'N.A' : user_data.email | titlecase}}</p>
+                      <a class="edit-icon" color="accent" matRipple matTooltip="EDIT" (click)="open_edit('email')"><i class="material-icons">create</i></a>
+                    </div>
+                  </li>
+                  <li  class="col s3">
+                    <div class="cs-box">
+                      <img src="assets/img/phone.svg" class="fix-img">
+                      <span>Mobile</span>
+                      <p>{{user_data.mobile}}</p>
+                      <a class="edit-icon" color="accent" matRipple matTooltip="EDIT" (click)="open_edit('mobile')"><i class="material-icons">create</i></a>
+                    </div>
+                  </li>
+                  <li  class="col s3">
+                    <div class="cs-box">
+                      <img src="assets/img/username.svg" class="fix-img">
+                      <span>Username</span>
+                      <p>{{user_data.username | uppercase}}</p>
+                      <a class="edit-icon" color="accent" matRipple matTooltip="EDIT" (click)="open_edit('username')"><i class="material-icons">create</i></a>
+                    </div>
+                  </li>
+                  
+                  <li  class="col s3">
+                    <div class="cs-box">
+                      <!-- <img src="assets/img/password.png" class="fix-img"> -->
+                      <span>Password</span>
+                      <p>{{user_data.password}}</p>
+                      <a class="edit-icon" color="accent" matRipple matTooltip="EDIT" (click)="open_edit('password')"><i class="material-icons">create</i></a>
+                    </div>
+                  </li>
+                  
+                  <!-- //////////////////  IMP  /////////////////////// -->
+                  
+                  <!-- <li  class="col s4"> 
+                    <div class="cs-box">
+                      <img src="assets/img/map-location.svg" class="fix-img">
+                      <span>Assign Location</span>
+                      <p>Faridabad Golden</p>
+                      <a class="edit-icon" color="accent" matRipple matTooltip="EDIT"><i class="material-icons">create</i></a>
+                    </div>
+                  </li>  -->
+                </ul>
+              </div>
+              
+              <mat-divider class="mt15 mb15"></mat-divider>
+              
+              <!-- //////////////////  IMP  /////////////////////// -->
+              
+              <!-- <div class="col s6 cs-figure">
+                <ul>
+                  <li class="pink-bg">
+                    <div class="outer">
+                      <div class="inner">
+                        <span>Target</span>
+                        <p>&#8377;  32500.00</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="pink-bg">
+                    <div class="outer">
+                      <div class="inner">
+                        <span>Achieve</span>
+                        <p>&#8377;  2500.00</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="outer">
+                      <div class="inner">
+                        <span>Order Value</span>
+                        <p>&#8377;  2500.00</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s8">
+          <div class="sprate-box padding0">
+            <div class="full-address">
+              <div class="top-heading">
+                <h2>ADDRESS</h2>
+              </div>
+              <a mat-button class="address-edit" matTooltip="EDIT" color="accent" (click)="openDialog()"><i class="material-icons">edit</i></a>
+              <div class="nationality">
+                <img src="assets/img/india.svg" alt="">
+                <p>
+                  <ng-container *ngFor="let cnt of country_list">                
+                    <span *ngIf="cnt.id == user_data.country">{{cnt.name}}</span>
+                  </ng-container>
+                </p>
+              </div>
+              
+              <div class="ds-from-fields">
+                
+                <!-- //////////////////  IMP  /////////////////////// -->
+                
+                <!-- <div class="row">
+                  <div class="col s4 pr0">
+                    <div class="control-field">
+                      <mat-form-field class="ds-input">
+                        <mat-select placeholder="State" >
+                          <mat-option>Haryana</mat-option>
+                          <mat-option [value]="Rajasthan">Rajasthan</mat-option>
+                          <mat-option>Punjab</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4">
+                    <div class="control-field">
+                      <mat-form-field class="ds-input">
+                        <mat-select placeholder="City">
+                          <mat-option >Faridabad</mat-option>
+                          <mat-option [value]="Gurgaon">Gurgaon</mat-option>
+                          <mat-option>Hisar</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4 pl0">
+                    <div class="control-field">
+                      <mat-form-field class="ds-input">
+                        <mat-select placeholder="Pincode" [(value)]="selected">
+                          <mat-option >121004</mat-option>
+                          <mat-option [value]="121008">121008</mat-option>
+                          <mat-option>121009</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
+                  <div class="col s12 mt10">
+                    <div class="control-field">
+                      <mat-form-field class="ds-input">
+                        <textarea matInput placeholder="Address"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="cs-row">
+                  <div class="static-info">
+                    <p>State</p>
+                    <p>{{user_data.state}}</p>
+                  </div>
+                  <div class="static-info">
+                    <p>District</p>
+                    <p>{{user_data.district}}</p>                  
+                  </div>
+                  <div class="static-info">
+                    <p>City</p>
+                    <p>{{user_data.city}}</p>
+                  </div>
+                  <div class="static-info">
+                    <p>Pin Code</p>
+                    <p>{{user_data.pincode}}</p>
+                  </div>
+                </div>
+                <div class="cs-row">
+                  <div class="static-info">
+                    <p>Address</p>
+                    <p>{{user_data.address}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col s4">
+          <div class="sprate-box padding0">
+            <div class="cs-logs">
+              <div class="top-heading">
+                <h2>ACCOUNT INFO</h2>
+              </div>
+              <div class="logs-outer">
+                <div class="logs-list">
+                  <div class="account-details">
+                    <ul>
+                      <li>
+                        <div class="outer">
+                          <div class="inner">
+                            <div class="cs-account">
+                              <p>User Name</p>
+                              <h5>
+                                <input type="text" (keyup.enter)="update_user()" *ngIf="show_userinput" placeholder="Enter User Name"   [(ngModel)]="user_data.username" >
+                                <span *ngIf="!show_userinput" (click)="show_userinput = true">{{user_data.username}}</span>                            
+                              </h5>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="outer">
+                          <div class="inner">
+                            <div class="cs-account">
+                              <p>Password</p>
+                              <input type="password" *ngIf="!show_psw"   placeholder="***********" readonly>
+                              <input type="text" *ngIf="show_psw" placeholder="Enter Password"  (keyup.enter)="update_user()" [(ngModel)]="user_data.password" >
+                              <i class="material-icons pass-icon pass-show" *ngIf="!show_psw" (click)="show_psw = true">visibility</i>
+                              <i class="material-icons pass-icon pass-show" *ngIf="show_psw" (click)="show_psw = false">visibility_off</i>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="status-bg">
+                        <div class="outer">
+                          <div class="inner">
+                            <div class="cs-account">
+                              <p>Status</p>
+                              <h5>{{user_data.status}}</h5>                
+                              <mat-slide-toggle class="status-toogle" (change)="user_allowed(user_data.id)" [(ngModel)]="user_data.user_status" color="warn">&nbsp;</mat-slide-toggle>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <!-- <div class="col s4">
+          <div class="sprate-box padding0">
+            <div class="cs-logs">
+              <div class="top-heading">
+                <h2>ACTIVITY LOGS</h2>
+              </div>
+              <div class="logs-outer">
+                <div class="logs-list">
+                  <ul>
+                    <li *ngFor="let row of activity">
+                      <div class="name">
+                        {{row.created_by_name | titlecase}}
+                      </div>
+                      <div class="date">
+                        <img src="assets/img/clock.svg" class="mr10">
+                        {{row.date_created | date : 'd MMM , y h:m:s a'}}
+                      </div>
+                      <p>
+                        {{row.log | titlecase}}
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      -->
+    </div>
+  </div>
+  
+  <!-- <div class="container" *ngIf="order">
+    <div class="row">
+      <div class="col s12">
+        <div class="cs-table left-right-20">
+          <div class="table-head">
+            <table>
+              <tr>
+                <th class="w200">Date</th>
+                <th class="w200">Order Id</th>
+                <th class="w200">Customer</th>
+                <th>Mobile No</th>
+                <th class="w100 text-center">Total Item</th>
+                <th class="w100 text-center">Status</th>
+                <th class="w80">Action</th>
+              </tr>
+            </table>
+          </div>                   
+          <div class="table-container">
+            <div class="table-content">
+              <table>
+                <tr *ngFor="let row of order_list;let i=index">
+                  <td class="w200">{{row.date_created | date:'d MMM ,y'}}</td>
+                  <td class="w200"><a class="link-btn" routerLink="/order-detail/{{row.ecrpt_id}}" routerLinkActive="active" mat-button>#ORD{{row.id}}</a></td>
+                  <td class="w200">{{row.customer_name | titlecase}}</td>
+                  <td>{{row.mobile_1}}, {{row.mobile_2 == ''? '' : row.mobile_2}}</td>
+                  <td class="w100 text-center">{{row.total_item}}</td>
+                  <td class="w100">{{row.status | titlecase}}
+                    <div class="action-btns">
+                      <button mat-button class="delete"  (click)="deleteproduct(row.id,i)"><i class="material-icons">delete_sweep</i> Delete</button>
+                    </div>
+                  </td>
+                  <td class="w80 text-center">
+                    <a class="link-btn" routerLink="/order-detail/{{row.ecrpt_id}}" routerLinkActive="active" mat-button><i class="material-icons">remove_red_eye</i></a>                                     
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>                     
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+</div>
+
+<div class="h50"></div>
+

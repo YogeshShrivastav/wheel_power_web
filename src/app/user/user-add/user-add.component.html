@@ -1,0 +1,194 @@
+<div class="main-container" [@routerTransition]>
+  <div *ngIf="loader" class="loader">
+      <div class="outer">
+          <div class="innear">
+              <mat-spinner class="loader"></mat-spinner>
+          </div>
+      </div>
+  </div>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>User</h2>
+        <p>Add New User</p>
+      </div>
+    </div>
+  </div>
+  
+  <form #f="ngForm" (ngSubmit)="f.valid && insert_user()">
+  <div class="container-outer">
+    <app-master-tab></app-master-tab>
+    <div class="container tab-container" >
+      <div class="row">
+        <div class="col s12">
+          <div class="sprate-box">
+            <div class="cs-heading">
+              <h2>USER TYPE</h2>              
+              <span class="required">Indicates required fields ( <sup>*</sup> )</span>
+            </div>
+            
+            <mat-divider class="left-right-15 mt10"></mat-divider>
+            
+            <div class="row">
+              <div class="col s12 pr0 pl0">
+                <div class="user-type">
+                    <mat-radio-group class="example-section" name="user_type" (change)="select_type()" [(ngModel)]="user_type">
+                      <mat-radio-button class="example-margin mr20" color="accent" value="SALES USER">SALES USER</mat-radio-button>
+                      <mat-radio-button class="example-margin" color="accent" value="SYSTEM USER">SYSTEM USER</mat-radio-button>
+                    </mat-radio-group>                
+                </div>
+              </div>
+            </div>
+            
+            <div class="row mb20" *ngIf="user_type == 'SYSTEM USER'">
+              <div class="col s12">
+                <div class="select-one">
+                  <mat-radio-group name="admin_type" [(ngModel)]="data.admin_type">
+                    <mat-radio-button value="Admin">Admin</mat-radio-button>
+                    <mat-radio-button value="Sub-Admin">Sub Admin</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+            <div class="cs-heading">
+              <h2>BASIC INFORMATION</h2>
+            </div>
+            <mat-divider class="left-right-15 mt10"></mat-divider>
+            
+            <div class="from-fields">
+              
+              <div class="row">
+                <div class="col s4 pl0">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input" >
+                      <input matInput placeholder="Name" name="name" [(ngModel)]="data.name" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col s4 ">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <input matInput placeholder="Mobile No" type="text" (keypress)="MobileNumber($event)" min="0" maxlength="10" minlength="10" name="mobile" [(ngModel)]="data.mobile" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col s4 pr0">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <input matInput placeholder="Email ID" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]="data.email">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row mb20">
+                <div class="col s12 pl0">
+                  <div class="control-field">
+                    <mat-form-field class="cs-input">
+                      <textarea matInput placeholder="Address" name="address" [(ngModel)]="data.address"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col s4 empty"></div>
+              </div>
+
+              <div class="row">
+                  <div class="col s4 pr0">
+                    <div class="control-field">                     
+                        <mat-form-field class="cs-input cs-multi-select">
+                            <mat-select placeholder="Select Country"  name="country" [(ngModel)]="data.country" #country="ngModel" (selectionChange)="get_states()">
+                                <mat-option *ngFor="let val of country_list" [value]="val.id"> {{val.name}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>                        
+                      </div>
+                  </div>
+                  
+                  <div> 
+                    <div class="col s4 pr0">
+                        <div class="control-field">
+                          <mat-form-field class="cs-input" *ngIf="data.country_id == 99">
+                              <mat-select placeholder="State" name="state" [(ngModel)]="data.state"  (selectionChange)="get_district()">
+                                <mat-option *ngFor="let state of state_list" [value]="state.state_name">{{state.state_name}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <mat-form-field class="cs-input" *ngIf="data.country_id != 99">
+                            <input matInput type="text" placeholder="State" name="state" [(ngModel)]="data.state">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input" *ngIf="data.country_id == 99">
+                          <mat-select placeholder="District" name="district"  (selectionChange)="get_city()" [(ngModel)]="data.district">
+                            <mat-option *ngFor="let data of district_list" [value]="data.district_name">{{data.district_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="cs-input" *ngIf="data.country_id != 99">
+                          <input matInput type="text" placeholder="District" name="district" [(ngModel)]="data.district">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                          <mat-form-field class="cs-input" *ngIf="data.country_id == 99">
+                            <mat-select placeholder="City" name="city"  (selectionChange)="get_pincode()"  [(ngModel)]="data.city">
+                              <mat-option *ngFor="let data of city_list" [value]="data.city">{{data.city}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field class="cs-input" *ngIf="data.country_id != 99">
+                            <input matInput type="text" placeholder="City" name="city" [(ngModel)]="data.city">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                          <mat-form-field class="cs-input" *ngIf="data.country_id == 99">
+                            <mat-select placeholder="Pincode" name="pincode" [(ngModel)]="data.pincode">
+                              <mat-option *ngFor="let pin of pin_list"  [value]="pin.pincode">{{pin.pincode}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field class="cs-input" *ngIf="data.country_id != 99">
+                            <input matInput type="text" placeholder="PINCODE" name="pincode" [(ngModel)]="data.pincode">
+                          </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                          <mat-form-field class="cs-input">
+                            <mat-select placeholder="Status" name="status" [(ngModel)]="data.status">
+                              <mat-option value="Active">Active</mat-option>
+                              <mat-option value="Deactive">Deactive</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+            </div>
+
+            
+            <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+          </div>
+        </div>
+        
+        <div class="col s12">
+          <div class="cs-btn fixedd mt32 text-right">
+            <div class="in-btn">
+              <button mat-raised-button color="accent" [disabled]="!user_type">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+    </div>
+  </div>
+</form>
+</div>
+
+<div class="h50"></div>

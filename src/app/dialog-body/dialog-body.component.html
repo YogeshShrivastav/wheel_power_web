@@ -1,0 +1,74 @@
+<form #f="ngForm" (ngSubmit)="f.valid && submitproduct()">
+    <div class="edit-modal">
+        <p class="heading">Update </p>
+        <div mat-dialog-content>
+            
+            <div class="from-fields">
+                <div *ngIf="type">
+                    <div class="row" *ngIf="data.product_type == 'category'">
+                        <div class="col s12">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input" >
+                                    <mat-select placeholder="{{data.caption}}" name="product_val" [(ngModel)]="data.product_val" required>
+                                        <mat-option *ngFor="let row of list_data" value="{{row.category | uppercase}}">{{row.category | uppercase}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row"  *ngIf="data.product_type == 'sub_category'">
+                        <div class="col s12">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input"  required>
+                                    <mat-select placeholder="{{data.caption}}" name="product_val" [(ngModel)]="data.product_val">
+                                        <mat-option *ngFor="let row of list_data" value="{{row.sub_category | uppercase}}">{{row.sub_category | uppercase}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row"  *ngIf="data.product_type == 'brand'">
+                        <div class="col s12">
+                            <div class="control-field">
+                                <mat-form-field class="cs-input" >
+                                    <mat-select placeholder="{{data.caption}}" name="product_val" [(ngModel)]="data.product_val" required>
+                                        <mat-option *ngFor="let row of list_data" value="{{row.brand | uppercase}}">{{row.brand | uppercase}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!type" >
+                    <div class="col s12">
+                        <div class="control-field">
+                            <mat-form-field class="cs-input" *ngIf="data.product_type!='description'">
+                                <input matInput placeholder="{{data.caption}}" type="{{data.product_type == 'min_qty' || data.product_type == 'price' || data.product_type == 'master_packing' ? 'number' : 'text'}}" name="product_val" [(ngModel)]="data.product_val" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <div class="col s12">
+                        <div *ngIf="data.product_type=='description'" class="mt15 mb15">
+                            <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" name="product_val" class="trix-editor" [(ngModel)]="data.product_val"></app-ngx-editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <!-- <mat-form-field class="example-full-width cs-field">
+                <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" name="description" class="trix-editor" [(ngModel)]="product.description"></app-ngx-editor>
+            </mat-form-field> -->
+            
+        </div>
+        
+        <div mat-dialog-actions>
+            <!-- <button mat-button (click)="onNoClick()">Cancel</button> -->
+            <button mat-raised-button color="accent" >Update</button>
+        </div>
+    </div>
+</form>

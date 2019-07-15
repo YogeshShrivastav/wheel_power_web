@@ -1,0 +1,195 @@
+<div class="main-container" [@routerTransition]>
+  <div class="middle-container">
+    <div class="page-heading">
+      <img src="assets/img/leads_icon.svg" class="h-icon">
+      <div class="heading-text">
+        <h2>Vendor</h2>
+        <p *ngIf="manufacturer_id">Update Vendor</p>
+        <p *ngIf="!manufacturer_id">Add New Vendor</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container-outer">
+    <app-master-tab *ngIf="abq_user.login_type == 'admin' && !manufacturer_id"></app-master-tab>
+    <!-- <app-master-tab-list *ngIf="abq_user.login_type == 'admin' && manufacturer_id"></app-master-tab-list> -->
+    <div class="container" [ngClass]="{'tab-container': abq_user.login_type == 'admin' && !manufacturer_id}">
+      <div class="row">
+        <div class="col s12">
+          <form  #f="ngForm"  (ngSubmit)="f.valid && addManufecturer()">
+            <div class="sprate-box">
+              <div class="cs-heading">
+                <h2>BASIC INFORMATION</h2>
+                
+                <span class="required">Indicates required fields ( <sup>*</sup> )</span>
+              </div>
+              
+              <mat-divider class="left-right-15 mt10"></mat-divider>
+              <div class="from-fields">
+                <div class="row mb20">
+                  <div class="col s4 ml0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input" [ngClass]="{'is-invalid': !data.name && f.submitted }">
+                        <input matInput placeholder="Comapny Name" name="name" #name="ngModel" [(ngModel)]="data.name" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4 ml0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input" [ngClass]="{'is-invalid': !data.contact_person && f.submitted }">
+                        <input matInput placeholder="Contact Person's Name" name="contact_person" #contact_person="ngModel" [(ngModel)]="data.contact_person" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <input matInput placeholder="Landline" name="landline" type="text" min="0" minlength="11" maxlength="11" (keypress)="MobileNumber($event)"  [(ngModel)]="data.landline">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input" [ngClass]="{'is-invalid': !data.mobile && f.submitted }">
+                        <input matInput placeholder="Mobile No." name="mobile" type="text" min="0" minlength="10" maxlength="10" (keypress)="MobileNumber($event)"  [(ngModel)]="data.mobile" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input" [ngClass]="{'is-invalid': !data.email && f.submitted }">
+                        <input matInput placeholder="Email ID" [email]="true" name="email" [(ngModel)]="data.email"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col s4 pr0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <input matInput placeholder="GST" type="text" name="gst" [(ngModel)]="data.gst">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <mat-divider class="left-right-15 mt10 mb10"></mat-divider>
+              <div class="cs-heading">
+                <h2>ADDRESS INFORMATION</h2>
+              </div>
+              <mat-divider class="left-right-15 mt10"></mat-divider>
+              
+              <div class="from-fields">
+                <div class="row">
+                  <div class="col s12 pr0">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <textarea matInput placeholder="Street" name="street" [(ngModel)]="data.address"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>                            
+                </div>
+                <div class="row">
+                  <div class="col s4 pr0">
+                    <div class="control-field">                     
+                      <mat-form-field class="cs-input cs-multi-select">
+                        <mat-select placeholder="Select Country"  name="country_id" [(ngModel)]="data.country_id" #country_id="ngModel" (selectionChange)="get_states()">
+                          <mat-option *ngFor="let val of country_list" [value]="val.id"> {{val.name}} </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
+                  <div *ngIf="data.country_id==99"> 
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="State" name="state" [(ngModel)]="data.state"  (selectionChange)="get_district()" >
+                            <mat-option *ngFor="let state of state_list" [value]="state.state_name">{{state.state_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="District" name="district"  (selectionChange)="get_city()" [(ngModel)]="data.district" >
+                            <mat-option *ngFor="let data of district_list" [value]="data.district_name">{{data.district_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="City" name="city"  (selectionChange)="get_pincode()"  [(ngModel)]="data.city" >
+                            <mat-option *ngFor="let data of city_list" [value]="data.city">{{data.city}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="PINCODE" name="pincode" [(ngModel)]="data.pincode" >
+                            <mat-option *ngFor="let pin of pin_list"  [value]="pin.pincode">{{pin.pincode}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div *ngIf="data.country_id != 99">
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput type="text" placeholder="State" name="state" [(ngModel)]="data.state" >
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput type="text" placeholder="District" name="district" [(ngModel)]="data.district" >
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput type="text" placeholder="City" name="city" [(ngModel)]="data.city" >
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col s4 pr0">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput type="text" placeholder="Pincode" name="pincode" [(ngModel)]="data.pincode" >
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>  
+                  
+                </div>
+                
+              </div>
+            </div>
+            
+            
+            <div class="col s12">
+              <div class="cs-btn fixedd mt32 text-right">
+                <div class="in-btn">
+                  <button mat-raised-button color="accent" *ngIf="!manufacturer_id">Save</button>
+                  <button mat-raised-button color="accent" *ngIf="manufacturer_id">Update</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="h50"></div>
